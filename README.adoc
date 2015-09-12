@@ -24,14 +24,14 @@ All of them try more or less
 * try to separate presentation from behaviour
 * make the view easily "exchangeable"
 * concentrate the business logic into e.g. the model, which "lives longer" (in years) than the often changing GUI technologies
-* etc...
+* ...
 
 When you develop a Java Swing GUI in practice, you face the following additional challenges
 
 * how to enforce the proper threading (view elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)
 * how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)
-* how to connect an ActionListener on e.g. a CancelButton with a just started SwingWorker and disconnect it after the SwingWorker finished
-* how to combine the results from multiple asynchronous actions (multiple SwingWorker's) into one result for the view
+* how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished
+* how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability
 * ...
 
@@ -43,12 +43,12 @@ These are a lot of questions which are IMO not easily answered for a Java Swing 
 
 === The idea
 
-One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel[MVVM] and came up with the idea of
+One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel[*MVVM*] and came up with the idea of
 
-* using https://github.com/ReactiveX/RxJava[RxJava]'s http://reactivex.io/documentation/subject.html[Subject] objects as "listenable" value objects for the ViewModel (aka PresentationModel)
-* https://github.com/ReactiveX/RxSwing[RxSwing] to connect (bind) the View widgets (JButton, JTextField, ...) to the ViewModel-Subjects
-* plain RxJava to react on changes of the ViewModel-Subjects and interact with the Model (backend)
-* use RxJava http://reactivex.io/documentation/scheduler.html[Scheduler] do the the threading
+* using https://github.com/ReactiveX/RxJava[RxJava]'s http://reactivex.io/documentation/subject.html[Subject] objects as "listenable" value objects for the ViewModel
+* https://github.com/ReactiveX/RxSwing[RxSwing] to connect the View widgets (JButton, JTextField, ...) to the ViewModel-Subjects as "data binding"
+* https://github.com/ReactiveX/RxJava[RxJava] to react on changes of the ViewModel-Subjects and interact with the Model (backend)
+* use RxJava's http://reactivex.io/documentation/scheduler.html[Scheduler] and the RxSwing https://github.com/ReactiveX/RxSwing/blob/0.x/src/main/java/rx/schedulers/SwingScheduler.java[SwingScheduler] to do the threading
 
 The solution was really nice and I'd like to share it with you through this github repo.
 
