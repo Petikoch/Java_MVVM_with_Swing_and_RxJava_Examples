@@ -57,7 +57,7 @@ First, let's look at the "data flow" in MVVM:
 
 image::MVVMPattern.png[]
 
-* The View interacts with the ViewModel through DataBinding (this means in practise you don't see any method calls, listeners etc in your sourcecode. You just see "binding" code.)
+* The View interacts with the ViewModel through DataBinding (this means in practise you don't see any method calls, listeners etc in your sourcecode, you just see "binding" code)
 * The View doesn't interact with the Model
 * The ViewModel interacts with the Model through ordinary Model API call's
 * The Model API has some kind of callbacks to push data up to the ViewModel (dashed arrow)
@@ -72,16 +72,16 @@ image::MVVM_dependencies.png[]
 * The Model "doesn't see" the ViewModel and "doesn't see" the View
 * We have acyclic dependencies
 
-==== Basic ideas behind the example implementation here
+==== Basic ideas behind the implementation of the examples here
 
 * Threading
-** All the action between View -> ViewModel and ViewModel -> View happens on the SwingScheduler
-** All the action between ViewModel -> Model happens on Schedulers.io() (= cached thread pool)
+** All the action between View -> ViewModel and ViewModel -> View happens on the `SwingScheduler
+** All the action between ViewModel -> Model happens on `Schedulers.io()` (= cached thread pool)
 
 * View
 ** DataBinding
 *** We add a little "Binder" fluent API a la https://github.com/canoo/open-dolphin/blob/master/subprojects/shared/src/main/groovy/org/opendolphin/binding/Binder.groovy[open-dolphin's Binder] on top of RxJava
-** There is no other code than a) DataBinding code and b) plain GUI code in the View
+** There is no other code than a) DataBinding code and b) plain GUI structure code in the View (= passive View)
 ** "Large" View's are composed by combining multiple "small" View's
 
 * ViewModel
@@ -98,8 +98,8 @@ image::MVVM_dependencies.png[]
 ** The Model is therefore fully focused on business logic and data
 
 As you can see, there is no kind of "framework" described here to implement MVVM.
-Instead, it's just the combination of standard JDK classes with the RxJava and RxSwing libraries
-together with some additional fluent API code for the DataBinding.
+Instead, it's just the combination of standard JDK classes with the RxJava and RxSwing libraries,
+together with some additional fluent API code for "nice" DataBinding.
 
 === Examples
 
