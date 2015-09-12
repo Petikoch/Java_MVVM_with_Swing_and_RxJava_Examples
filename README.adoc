@@ -51,7 +51,7 @@ One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel
 
 I started with some small examples for different aspects. The solution was really nice IMO and I'd like to share it with you now through this github repo.
 
-=== Implementing MVVM using RxJava and RxSwing
+== Implementing MVVM using RxJava and RxSwing
 
 First, let's look at the "data flow" in MVVM:
 
@@ -101,9 +101,11 @@ As you can see, there is no kind of "framework" described here to implement MVVM
 Instead, it's just the combination of standard JDK classes with the RxJava and RxSwing libraries,
 together with some additional fluent API code for "nice" DataBinding.
 
-=== Examples
+== Examples
 
-TODO
+=== Example 1: Hello World (from the Model)
+
+link:../src/main/java/ch/petikoch/examples/mvvm_rxjava/example1[]
 
 == Requirements
 
