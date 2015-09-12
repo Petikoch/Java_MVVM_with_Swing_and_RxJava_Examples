@@ -1,7 +1,7 @@
 = Java MVVM RxJava-based examples
 Peti Koch
 :imagesdir: ./docs
-:project-name: Java_MVVM_RxJava-based_examples
+:project-name: Java_MVVM_with_Swing_and_RxJava_Examples
 :github-branch: master
 :github-user: Petikoch
 :bintray-user: petikoch
