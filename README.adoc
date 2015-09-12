@@ -1,4 +1,4 @@
-= Java MVVM RxJava-based examples
+= Java MVVM with Swing, RxJava and RxSwing examples
 Peti Koch
 :imagesdir: ./docs
 :project-name: Java_MVVM_with_Swing_and_RxJava_Examples
@@ -9,10 +9,48 @@ Peti Koch
 image:http://img.shields.io/badge/license-ASF2-blue.svg["Apache License 2", link="http://www.apache.org/licenses/LICENSE-2.0.txt"]
 image:https://travis-ci.org/{github-user}/{project-name}.svg?branch={github-branch}["Build Status", link="https://travis-ci.org/{github-user}/{project-name}"]
 
-
 == Introduction
 
-TODO
+There are a lot of different architectures for the GUI described:
+*Model View Controller*, *Model View Presenter*, *Model View ViewModel*, *PresentationModel*, ...
+
+All of them try more or less
+
+* to decouple the "different things" (widgets, forms, business logic, ...) from each other
+* make the "different things" easily testable (unit-testable)
+* try to separate presentation from behaviour
+* make the view easily "exchangeable"
+* concentrate the business logic into e.g. the model, which "lives longer" (in years) than the often changing GUI technologies
+* etc...
+
+When you develop a Java Swing GUI in practice, you face the following additional challenges
+
+* how to enforce the proper threading (view elements like JPanel, JButton, ... only accessed by AWT-EventDispatchThread)
+* how to keep the view "responsive" by kicking off background actions (-> SwingWorker, ...)
+* how to connect an ActionListener on a e.g. a CancelButton with a just started SwingWorker
+* how to easily cancel background actions (SwingWorker) if the GUI is closed or parts of the GUI are closed
+* how to combine the results from multiple asynchronous actions (multiple SwingWorker's) into one result for the view
+* how to enforce acyclic relationships between "stuff" to get good (isolated) testability
+* ...
+
+So, which GUI architecture should you choose? What are the benefits and drawbacks? What libraries are available to have "quick results"?
+
+These are a lot of questions, which are not easily answered for a Java Swing GUI.
+
+=== The idea
+
+One day, I had a deep lock at MVVM and came up with the idea of
+
+* using https://github.com/ReactiveX/RxJava[RxJava]'s http://reactivex.io/documentation/subject.html[Subject] objects as "listenable" value objects for the ViewModel (aka PresentationModel)
+* https://github.com/ReactiveX/RxSwing[RxSwing] to connect (bind) the View widgets (JButton, JTextField, ...) to the ViewModel-Subjects
+* plain RxJava to react on changes of the ViewModel-Subjects and interact with the Model (backend)
+* use RxJava http://reactivex.io/documentation/scheduler.html[Scheduler] do the the threading
+
+The solution was really nice and I'd like to share it with you through this github repo.
+
+=== Implementing MVVM using RxJava and RxSwing
+
+
 
 === Examples
 
