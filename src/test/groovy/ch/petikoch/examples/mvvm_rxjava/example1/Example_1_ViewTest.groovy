@@ -15,8 +15,9 @@
  */
 package ch.petikoch.examples.mvvm_rxjava.example1
 
-import ch.petikoch.examples.mvvm_rxjava.utils.SwingUtilities2
 import spock.lang.Specification
+
+import static ch.petikoch.examples.mvvm_rxjava.utils.SwingUtilities2.executeOnAwtEdt
 
 @SuppressWarnings("GroovyAccessibility")
 class Example_1_ViewTest extends Specification {
@@ -25,7 +26,7 @@ class Example_1_ViewTest extends Specification {
     def testee = createTestee()
 
     private Example_1_View createTestee() {
-        return SwingUtilities2.executeOnAwtEdt({
+        return executeOnAwtEdt({
             def view = new Example_1_View()
             view.bind(viewModel)
             return view
@@ -37,13 +38,13 @@ class Example_1_ViewTest extends Specification {
         def text1 = "infotext_1: " + System.nanoTime()
         viewModel.vm2v_info.onNext(text1)
         then:
-        SwingUtilities2.executeOnAwtEdt({ testee.label.getText() }) == text1
+        executeOnAwtEdt({ testee.label.getText() }) == text1
 
         when:
         def text2 = "infotext_2: " + System.nanoTime()
         viewModel.vm2v_info.onNext(text2)
         then:
-        SwingUtilities2.executeOnAwtEdt({ testee.label.getText() }) == text2
+        executeOnAwtEdt({ testee.label.getText() }) == text2
     }
 
 }
