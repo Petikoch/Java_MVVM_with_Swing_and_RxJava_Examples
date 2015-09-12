@@ -51,7 +51,7 @@ class Example_5_ViewModelTest extends Specification {
         then:
         // immediate
         testee.vm2v_nameEnabled.getValue() == false
-        testee.vm2v_vornameEnabled.getValue() == false
+        testee.vm2v_firstnameEnabled.getValue() == false
         testee.vm2v_submitButtonEnabled.getValue() == false
 
         when:
@@ -62,7 +62,7 @@ class Example_5_ViewModelTest extends Specification {
         conditions.eventually {
             // asynchronous
             assert testee.vm2v_nameEnabled.getValue() == true
-            assert testee.vm2v_vornameEnabled.getValue() == true
+            assert testee.vm2v_firstnameEnabled.getValue() == true
             assert testee.vm2v_submitButtonEnabled.getValue() == true
             assert interruptHappened.get() == true
         }

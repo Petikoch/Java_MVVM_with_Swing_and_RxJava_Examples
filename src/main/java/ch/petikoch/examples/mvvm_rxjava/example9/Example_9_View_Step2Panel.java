@@ -86,13 +86,13 @@ public class Example_9_View_Step2Panel extends StrictThreadingJPanel implements 
 
         firstnameTextField = new StrictThreadingJTextField();
         firstnameTextField.setFont(nameTextField.getFont());
-        GridBagConstraints gbc_vornameTextField = new GridBagConstraints();
-        gbc_vornameTextField.gridwidth = 2;
-        gbc_vornameTextField.insets = new Insets(0, 0, 5, 0);
-        gbc_vornameTextField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_vornameTextField.gridx = 1;
-        gbc_vornameTextField.gridy = 2;
-        add(firstnameTextField, gbc_vornameTextField);
+        GridBagConstraints gbc_firstnameTextField = new GridBagConstraints();
+        gbc_firstnameTextField.gridwidth = 2;
+        gbc_firstnameTextField.insets = new Insets(0, 0, 5, 0);
+        gbc_firstnameTextField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_firstnameTextField.gridx = 1;
+        gbc_firstnameTextField.gridy = 2;
+        add(firstnameTextField, gbc_firstnameTextField);
         firstnameTextField.setColumns(10);
 
         nextButton = new StrictThreadingJButton("Next");

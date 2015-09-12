@@ -43,7 +43,7 @@ class Example_6_View extends StrictThreadingJFrame implements IView<Example_6_Vi
         bindViewModelBoolean(viewModel.vm2v_nameEnabled).toSwingViewEnabledPropertyOf(nameTextField);
 
         bindSwingView(firstnameTextField).toViewModel(viewModel.v2vm_firstname);
-        bindViewModelBoolean(viewModel.vm2v_vornameEnabled).toSwingViewEnabledPropertyOf(firstnameTextField);
+        bindViewModelBoolean(viewModel.vm2v_firstnameEnabled).toSwingViewEnabledPropertyOf(firstnameTextField);
 
         bindSwingView(submitButton).toViewModel(viewModel.v2vm_submitButtonEvents);
         bindViewModelBoolean(viewModel.vm2v_submitButtonEnabled).toSwingViewEnabledPropertyOf(submitButton);

@@ -31,40 +31,40 @@ class Example_9_ViewModel implements IViewModel<Example_9_Model> {
     }
 
     private void wireInternally() {
-        vm2v_mainPanel.onNext(createSchritt1ViewModel());
+        vm2v_mainPanel.onNext(createStep1ViewModel());
     }
 
-    private Example_9_ViewModel_Step1 createSchritt1ViewModel() {
-        Example_9_ViewModel_Step1 viewModelSchritt1 = new Example_9_ViewModel_Step1();
-        viewModelSchritt1.v2vm_startButtonEvents.subscribe(actionEvent -> {
-            vm2v_mainPanel.onNext(createSchritt2ViewModel());
+    private Example_9_ViewModel_Step1 createStep1ViewModel() {
+        Example_9_ViewModel_Step1 viewModelStep1 = new Example_9_ViewModel_Step1();
+        viewModelStep1.v2vm_startButtonEvents.subscribe(actionEvent -> {
+            vm2v_mainPanel.onNext(createStep2ViewModel());
         });
-        return viewModelSchritt1;
+        return viewModelStep1;
     }
 
-    private Example_9_ViewModel_Step2 createSchritt2ViewModel() {
+    private Example_9_ViewModel_Step2 createStep2ViewModel() {
         vm2v_status.vm2v_status.onNext("Please complete the form");
-        Example_9_ViewModel_Step2 viewModelSchritt2 = new Example_9_ViewModel_Step2();
-        viewModelSchritt2.v2vm_submitButtonEvents.subscribe(actionEvent -> {
+        Example_9_ViewModel_Step2 viewModelStep2 = new Example_9_ViewModel_Step2();
+        viewModelStep2.v2vm_submitButtonEvents.subscribe(actionEvent -> {
             vm2v_mainPanel.onNext(
-                    createSchritt3ViewModel(
-                            viewModelSchritt2.v2vm_name.getValue(),
-                            viewModelSchritt2.v2vm_firstname.getValue()
+                    createStep3ViewModel(
+                            viewModelStep2.v2vm_name.getValue(),
+                            viewModelStep2.v2vm_firstname.getValue()
                     )
             );
         });
-        return viewModelSchritt2;
+        return viewModelStep2;
     }
 
-    private Example_9_ViewModel_Step3 createSchritt3ViewModel(String name, String vorname) {
+    private Example_9_ViewModel_Step3 createStep3ViewModel(String name, String firstname) {
         vm2v_status.vm2v_status.onNext("Thanks");
-        Example_9_ViewModel_Step3 viewModelSchritt3 = new Example_9_ViewModel_Step3();
-        viewModelSchritt3.vm_name.onNext(name);
-        viewModelSchritt3.vm_vorname.onNext(vorname);
-        viewModelSchritt3.v2vm_restartButtonEvents.subscribe(actionEvent -> {
-            vm2v_mainPanel.onNext(createSchritt2ViewModel());
+        Example_9_ViewModel_Step3 viewModelStep3 = new Example_9_ViewModel_Step3();
+        viewModelStep3.vm_name.onNext(name);
+        viewModelStep3.vm_firstname.onNext(firstname);
+        viewModelStep3.v2vm_restartButtonEvents.subscribe(actionEvent -> {
+            vm2v_mainPanel.onNext(createStep2ViewModel());
         });
-        return viewModelSchritt3;
+        return viewModelStep3;
     }
 
     @Override

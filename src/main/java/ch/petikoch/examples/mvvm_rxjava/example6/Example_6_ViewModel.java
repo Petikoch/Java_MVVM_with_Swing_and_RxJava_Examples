@@ -36,7 +36,7 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
     public final BehaviorSubject<Boolean> vm2v_nameEnabled = BehaviorSubject.create();
 
     public final BehaviorSubject<String> v2vm_firstname = BehaviorSubject.create();
-    public final BehaviorSubject<Boolean> vm2v_vornameEnabled = BehaviorSubject.create();
+    public final BehaviorSubject<Boolean> vm2v_firstnameEnabled = BehaviorSubject.create();
 
     public final PublishSubject<ActionEvent> v2vm_submitButtonEvents = PublishSubject.create();
     public final BehaviorSubject<Boolean> vm2v_submitButtonEnabled = BehaviorSubject.create(false /* initial state */);
@@ -47,7 +47,7 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
     public final BehaviorSubject<String> vm2v_resultat1 = BehaviorSubject.create();
     public final BehaviorSubject<String> vm2v_resultat2 = BehaviorSubject.create();
 
-    public final BehaviorSubject<NameFirstname> vm2m_nameVorname = BehaviorSubject.create();
+    public final BehaviorSubject<NameFirstname> vm2m_nameFirstname = BehaviorSubject.create();
 
     public Example_6_ViewModel() {
         wireInternally();
@@ -56,17 +56,17 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
     private void wireInternally() {
         v2vm_submitButtonEvents
                 .map(actionEvent -> new NameFirstname(v2vm_name.getValue(), v2vm_firstname.getValue()))
-                .subscribe(nameVorname -> {
+                .subscribe(nameFirstname -> {
                     vm2v_nameEnabled.onNext(false);
-                    vm2v_vornameEnabled.onNext(false);
+                    vm2v_firstnameEnabled.onNext(false);
                     vm2v_submitButtonEnabled.onNext(false);
                     vm2v_cancelButtonEnabled.onNext(true);
 
-                    vm2m_nameVorname.onNext(nameVorname);
+                    vm2m_nameFirstname.onNext(nameFirstname);
                 });
 
         Observable.merge(v2vm_name, v2vm_firstname)
-                .map(nameOderVorname -> StringUtils.isNotBlank(v2vm_name.getValue()) && StringUtils.isNotBlank(v2vm_firstname.getValue()))
+                .map(nameOrFirstname -> StringUtils.isNotBlank(v2vm_name.getValue()) && StringUtils.isNotBlank(v2vm_firstname.getValue()))
                 .subscribe(vm2v_submitButtonEnabled);
 
         Observable.merge(v2vm_name, v2vm_firstname).subscribe(s -> {
@@ -77,19 +77,19 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
 
     @Override
     public void connectTo(final Example_6_Model model) {
-        bindViewModel(vm2m_nameVorname).toAction(nameVorname -> {
+        bindViewModel(vm2m_nameFirstname).toAction(nameFirstname -> {
 
             vm2v_resultat1.onNext("Creating acount...");
             vm2v_resultat2.onNext("Sending email...");
 
-            final Single<FinishedIndicator> erstelleKontoResultat = model.createAcount(nameVorname);
+            final Single<FinishedIndicator> erstelleKontoResultat = model.createAcount(nameFirstname);
             erstelleKontoResultat.toObservable().first().takeUntil(v2vm_cancelButtonEvents).subscribe(
-                    finishedIndicator -> vm2v_resultat1.onNext("Acount created for " + nameVorname.getName() + " " + nameVorname.getFirstname()));
+                    finishedIndicator -> vm2v_resultat1.onNext("Acount created for " + nameFirstname.getName() + " " + nameFirstname.getFirstname()));
             v2vm_cancelButtonEvents.first().takeUntil(erstelleKontoResultat.toObservable()).subscribe(actionEvent -> vm2v_resultat1.onNext("Aborted"));
 
-            final Single<FinishedIndicator> verschickeEmailResultat = model.sendEmail(nameVorname);
+            final Single<FinishedIndicator> verschickeEmailResultat = model.sendEmail(nameFirstname);
             verschickeEmailResultat.toObservable().first().takeUntil(v2vm_cancelButtonEvents).subscribe(
-                    finishedIndicator -> vm2v_resultat2.onNext("Email sent to " + nameVorname.getName() + " " + nameVorname.getFirstname()));
+                    finishedIndicator -> vm2v_resultat2.onNext("Email sent to " + nameFirstname.getName() + " " + nameFirstname.getFirstname()));
             v2vm_cancelButtonEvents.first().takeUntil(verschickeEmailResultat.toObservable()).subscribe(actionEvent -> vm2v_resultat2.onNext("Aborted"));
 
             final Single<FinishedIndicator> beidesFertig =
@@ -102,7 +102,7 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
                     .first();
 
             vm2v_nameEnabled.onNext(true);
-            vm2v_vornameEnabled.onNext(true);
+            vm2v_firstnameEnabled.onNext(true);
             vm2v_submitButtonEnabled.onNext(true);
             vm2v_cancelButtonEnabled.onNext(false);
         });

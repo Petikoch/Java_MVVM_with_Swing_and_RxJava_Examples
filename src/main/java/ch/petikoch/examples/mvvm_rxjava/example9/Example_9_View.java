@@ -35,25 +35,25 @@ class Example_9_View extends StrictThreadingJFrame implements IView<Example_9_Vi
         statusPanel.bind(viewModel.vm2v_status);
         viewModel.vm2v_mainPanel.observeOn(SwingScheduler.getInstance()).subscribe(mainContentViewModel -> {
             if (mainContentViewModel instanceof Example_9_ViewModel_Step1) {
-                Example_9_View_Step1Panel schritt1Panel = new Example_9_View_Step1Panel();
-                schritt1Panel.bind((Example_9_ViewModel_Step1) mainContentViewModel);
+                Example_9_View_Step1Panel step1Panel = new Example_9_View_Step1Panel();
+                step1Panel.bind((Example_9_ViewModel_Step1) mainContentViewModel);
 
                 mainPanel.removeAll();
-                mainPanel.add(schritt1Panel, BorderLayout.CENTER);
+                mainPanel.add(step1Panel, BorderLayout.CENTER);
                 mainPanel.revalidate();
             } else if (mainContentViewModel instanceof Example_9_ViewModel_Step2) {
-                Example_9_View_Step2Panel schritt2Panel = new Example_9_View_Step2Panel();
-                schritt2Panel.bind((Example_9_ViewModel_Step2) mainContentViewModel);
+                Example_9_View_Step2Panel step2Panel = new Example_9_View_Step2Panel();
+                step2Panel.bind((Example_9_ViewModel_Step2) mainContentViewModel);
 
                 mainPanel.removeAll();
-                mainPanel.add(schritt2Panel, BorderLayout.CENTER);
+                mainPanel.add(step2Panel, BorderLayout.CENTER);
                 mainPanel.revalidate();
             } else if (mainContentViewModel instanceof Example_9_ViewModel_Step3) {
-                Example__View_Step3Panel schritt3Panel = new Example__View_Step3Panel();
-                schritt3Panel.bind((Example_9_ViewModel_Step3) mainContentViewModel);
+                Example__View_Step3Panel step3Panel = new Example__View_Step3Panel();
+                step3Panel.bind((Example_9_ViewModel_Step3) mainContentViewModel);
 
                 mainPanel.removeAll();
-                mainPanel.add(schritt3Panel, BorderLayout.CENTER);
+                mainPanel.add(step3Panel, BorderLayout.CENTER);
                 mainPanel.revalidate();
             } else {
                 throw new IllegalStateException("Unhandled: " + mainContentViewModel);

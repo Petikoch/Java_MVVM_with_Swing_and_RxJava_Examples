@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 class Example_9_ViewModel_Step3 implements IViewModel<Example_9_Model> {
 
     public final ReplaySubject<String> vm_name = ReplaySubject.create();
-    public final ReplaySubject<String> vm_vorname = ReplaySubject.create();
+    public final ReplaySubject<String> vm_firstname = ReplaySubject.create();
 
     public final PublishSubject<ActionEvent> v2vm_restartButtonEvents = PublishSubject.create();
 

@@ -46,7 +46,7 @@ class Example_2_ViewTest extends Specification {
         when:
         SwingUtilities2.executeOnAwtEdt({ testee.submitButton.doClick() })
         then:
-        viewModel.vm2m_nameVorname.getValue() == new NameFirstname(name1, firstname1)
+        viewModel.vm2m_nameFirstname.getValue() == new NameFirstname(name1, firstname1)
 
         when:
         def name2 = 'Ben'
@@ -60,6 +60,6 @@ class Example_2_ViewTest extends Specification {
         when:
         SwingUtilities2.executeOnAwtEdt({ testee.submitButton.doClick() })
         then:
-        viewModel.vm2m_nameVorname.getValue() == new NameFirstname(name2, firstname2)
+        viewModel.vm2m_nameFirstname.getValue() == new NameFirstname(name2, firstname2)
     }
 }

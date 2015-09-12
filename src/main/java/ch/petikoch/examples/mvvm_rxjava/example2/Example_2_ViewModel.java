@@ -32,7 +32,7 @@ class Example_2_ViewModel implements IViewModel<Example_2_Model> {
     public final BehaviorSubject<String> v2vm_firstname = BehaviorSubject.create();
     public final PublishSubject<ActionEvent> v2vm_submitButtonEvents = PublishSubject.create();
 
-    public final BehaviorSubject<NameFirstname> vm2m_nameVorname = BehaviorSubject.create();
+    public final BehaviorSubject<NameFirstname> vm2m_nameFirstname = BehaviorSubject.create();
 
     public Example_2_ViewModel() {
         wireInternally();
@@ -41,12 +41,12 @@ class Example_2_ViewModel implements IViewModel<Example_2_Model> {
     private void wireInternally() {
         v2vm_submitButtonEvents
                 .map(actionEvent -> new NameFirstname(v2vm_name.getValue(), v2vm_firstname.getValue()))
-                .subscribe(vm2m_nameVorname);
+                .subscribe(vm2m_nameFirstname);
     }
 
     @Override
     public void connectTo(final Example_2_Model model) {
-        bindViewModel(vm2m_nameVorname).toAction(model::submit);
+        bindViewModel(vm2m_nameFirstname).toAction(model::submit);
     }
 
 }

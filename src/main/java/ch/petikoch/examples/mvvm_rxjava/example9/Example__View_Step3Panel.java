@@ -35,7 +35,7 @@ public class Example__View_Step3Panel extends StrictThreadingJPanel implements I
     @Override
     public void bind(final Example_9_ViewModel_Step3 viewModel) {
         bindViewModelString(viewModel.vm_name).toSwingViewLabel(displayedNameLabel);
-        bindViewModelString(viewModel.vm_vorname).toSwingViewLabel(displayedFirstnameLabel);
+        bindViewModelString(viewModel.vm_firstname).toSwingViewLabel(displayedFirstnameLabel);
         bindSwingView(restartButton).toViewModel(viewModel.v2vm_restartButtonEvents);
     }
 
@@ -88,13 +88,13 @@ public class Example__View_Step3Panel extends StrictThreadingJPanel implements I
         displayedFirstnameLabel = new StrictThreadingJLabel();
         displayedFirstnameLabel.setFont(displayedNameLabel.getFont());
         displayedFirstnameLabel.setForeground(displayedNameLabel.getForeground());
-        GridBagConstraints gbc_vornameTextField = new GridBagConstraints();
-        gbc_vornameTextField.gridwidth = 2;
-        gbc_vornameTextField.insets = new Insets(0, 0, 5, 0);
-        gbc_vornameTextField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_vornameTextField.gridx = 1;
-        gbc_vornameTextField.gridy = 2;
-        add(displayedFirstnameLabel, gbc_vornameTextField);
+        GridBagConstraints gbc_firstnameTextField = new GridBagConstraints();
+        gbc_firstnameTextField.gridwidth = 2;
+        gbc_firstnameTextField.insets = new Insets(0, 0, 5, 0);
+        gbc_firstnameTextField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_firstnameTextField.gridx = 1;
+        gbc_firstnameTextField.gridy = 2;
+        add(displayedFirstnameLabel, gbc_firstnameTextField);
 
         restartButton = new StrictThreadingJButton("Restart");
         GridBagConstraints gbc_restartButton = new GridBagConstraints();

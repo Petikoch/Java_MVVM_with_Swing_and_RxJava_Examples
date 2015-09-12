@@ -36,7 +36,7 @@ class Example_3_ViewModel implements IViewModel<Example_3_Model> {
 
     public final BehaviorSubject<Boolean> vm2v_submitButtonEnabled = BehaviorSubject.create(false /* initial state */);
 
-    public final BehaviorSubject<NameFirstname> vm2m_nameVorname = BehaviorSubject.create();
+    public final BehaviorSubject<NameFirstname> vm2m_nameFirstname = BehaviorSubject.create();
 
     public Example_3_ViewModel() {
         wireInternally();
@@ -45,15 +45,15 @@ class Example_3_ViewModel implements IViewModel<Example_3_Model> {
     private void wireInternally() {
         v2vm_submitButtonEvents
                 .map(actionEvent -> new NameFirstname(v2vm_name.getValue(), v2vm_firstname.getValue()))
-                .subscribe(vm2m_nameVorname);
+                .subscribe(vm2m_nameFirstname);
 
         Observable.merge(v2vm_name, v2vm_firstname)
-                .map(nameOderVorname -> StringUtils.isNotBlank(v2vm_name.getValue()) && StringUtils.isNotBlank(v2vm_firstname.getValue()))
+                .map(nameOrFirstname -> StringUtils.isNotBlank(v2vm_name.getValue()) && StringUtils.isNotBlank(v2vm_firstname.getValue()))
                 .subscribe(vm2v_submitButtonEnabled);
     }
 
     @Override
     public void connectTo(final Example_3_Model model) {
-        bindViewModel(vm2m_nameVorname).toAction(model::submit);
+        bindViewModel(vm2m_nameFirstname).toAction(model::submit);
     }
 }

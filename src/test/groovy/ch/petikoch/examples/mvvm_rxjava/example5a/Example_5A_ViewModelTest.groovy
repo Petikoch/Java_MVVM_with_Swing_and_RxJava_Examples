@@ -32,7 +32,7 @@ class Example_5A_ViewModelTest extends Specification {
     def modelMock = Mock(Example_5a_Model)
     def conditions = new PollingConditions(timeout: 1)
 
-    def 'wenn submit Button click erfolgt ist kann mittels dem cancel Button abgebrochen werden'() {
+    def 'when submit button click happend then you can cancel using cancel button'() {
         setup:
         testee.connectTo(modelMock)
         def modelSubmitLatch = new CountDownLatch(1)
@@ -57,7 +57,7 @@ class Example_5A_ViewModelTest extends Specification {
         then:
         // immediate
         testee.vm2v_nameEnabled.getValue() == false
-        testee.vm2v_vornameEnabled.getValue() == false
+        testee.vm2v_firstnameEnabled.getValue() == false
         testee.vm2v_submitButtonEnabled.getValue() == false
 
         when:
@@ -68,7 +68,7 @@ class Example_5A_ViewModelTest extends Specification {
         conditions.eventually {
             // asynchronous
             assert testee.vm2v_nameEnabled.getValue() == true
-            assert testee.vm2v_vornameEnabled.getValue() == true
+            assert testee.vm2v_firstnameEnabled.getValue() == true
             assert testee.vm2v_submitButtonEnabled.getValue() == true
             assert interruptHappened.get() == true
         }

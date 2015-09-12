@@ -29,14 +29,14 @@ class Example_2_ViewModelTest extends Specification {
     def 'Binding ViewModel -> Model works'() {
         setup:
         testee.connectTo(modelMock)
-        def nameVorname = new NameFirstname('John', 'Smith')
+        def nameFirstname = new NameFirstname('John', 'Smith')
 
         when:
-        testee.vm2m_nameVorname.onNext(nameVorname)
+        testee.vm2m_nameFirstname.onNext(nameFirstname)
 
         then:
         conditions.eventually {
-            assert { 1 * modelMock.submit(nameVorname) }
+            assert { 1 * modelMock.submit(nameFirstname) }
         }
     }
 }

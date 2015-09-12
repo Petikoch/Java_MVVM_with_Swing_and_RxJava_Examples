@@ -37,7 +37,7 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
     public final BehaviorSubject<Boolean> vm2v_nameEnabled = BehaviorSubject.create();
 
     public final BehaviorSubject<String> v2vm_firstname = BehaviorSubject.create();
-    public final BehaviorSubject<Boolean> vm2v_vornameEnabled = BehaviorSubject.create();
+    public final BehaviorSubject<Boolean> vm2v_firstnameEnabled = BehaviorSubject.create();
 
     public final PublishSubject<ActionEvent> v2vm_submitButtonEvents = PublishSubject.create();
     public final BehaviorSubject<Boolean> vm2v_submitButtonEnabled = BehaviorSubject.create(false /* initial state */);
@@ -45,7 +45,7 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
     public final PublishSubject<ActionEvent> v2vm_cancelButtonEvents = PublishSubject.create();
     public final BehaviorSubject<Boolean> vm2v_cancelButtonEnabled = BehaviorSubject.create(false /* initial state */);
 
-    public final BehaviorSubject<NameFirstname> vm2m_nameVorname = BehaviorSubject.create();
+    public final BehaviorSubject<NameFirstname> vm2m_nameFirstname = BehaviorSubject.create();
 
     public Example_5_ViewModel() {
         wireInternally();
@@ -54,27 +54,27 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
     private void wireInternally() {
         v2vm_submitButtonEvents
                 .map(actionEvent -> new NameFirstname(v2vm_name.getValue(), v2vm_firstname.getValue()))
-                .subscribe(nameVorname -> {
+                .subscribe(nameFirstname -> {
                     vm2v_nameEnabled.onNext(false);
-                    vm2v_vornameEnabled.onNext(false);
+                    vm2v_firstnameEnabled.onNext(false);
                     vm2v_submitButtonEnabled.onNext(false);
                     vm2v_cancelButtonEnabled.onNext(true);
 
-                    vm2m_nameVorname.onNext(nameVorname);
+                    vm2m_nameFirstname.onNext(nameFirstname);
                 });
 
         Observable.merge(v2vm_name, v2vm_firstname)
-                .map(nameOderVorname -> StringUtils.isNotBlank(v2vm_name.getValue()) && StringUtils.isNotBlank(v2vm_firstname.getValue()))
+                .map(nameOrFirstname -> StringUtils.isNotBlank(v2vm_name.getValue()) && StringUtils.isNotBlank(v2vm_firstname.getValue()))
                 .subscribe(vm2v_submitButtonEnabled);
     }
 
     @Override
     public void connectTo(final Example_5_Model model) {
-        bindViewModel(vm2m_nameVorname).toAction(nameVorname -> {
+        bindViewModel(vm2m_nameFirstname).toAction(nameFirstname -> {
 
             Single<Boolean> modelCallFinished = Single.<Boolean>create(singleSubscriber -> {
                 try {
-                    model.submit(nameVorname);
+                    model.submit(nameFirstname);
                     if (!singleSubscriber.isUnsubscribed()) {
                         singleSubscriber.onSuccess(true);
                     }
@@ -88,7 +88,7 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
                     .first();
 
             vm2v_nameEnabled.onNext(true);
-            vm2v_vornameEnabled.onNext(true);
+            vm2v_firstnameEnabled.onNext(true);
             vm2v_submitButtonEnabled.onNext(true);
             vm2v_cancelButtonEnabled.onNext(false);
         });
