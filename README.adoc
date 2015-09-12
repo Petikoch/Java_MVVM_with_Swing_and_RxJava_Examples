@@ -91,7 +91,7 @@ image::MVVM_dependencies.png[]
 ** We use http://reactivex.io/documentation/subject.html[Subject]'s as "fields" in the ViewModel
 *** Each subject "field" in the ViewModel corresponds to one widget in the View
 *** We use a little prefix for the "field" name like `v2vm_` or `vm2v_` to indicate the flow direction
-*** We use the BehaviorSubject class for Subject instances, which is a stateful Subject to have the "current" state, an initial state and easy testability
+*** We use the `BehaviorSubject` class for Subject instances, which is a stateful Subject to have the "current" state, an initial state and easy testability
 ** The ViewModel handles all the "complicated" interaction stuff between View and Model
 
 * Model
