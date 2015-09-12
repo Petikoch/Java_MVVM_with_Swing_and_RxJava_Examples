@@ -11,8 +11,11 @@ image:https://travis-ci.org/{github-user}/{project-name}.svg?branch={github-bran
 
 == Introduction
 
-There are a lot of different architectures for the GUI described:
-*Model View Controller*, *Model View Presenter*, *Model View ViewModel*, *PresentationModel*, ...
+There are a lot of different architectures for the GUI:
+https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller[*Model View Controller*],
+https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter[*Model View Presenter*],
+https://en.wikipedia.org/wiki/Model_View_ViewModel[*Model View ViewModel*],
+http://martinfowler.com/eaaDev/PresentationModel.html[*PresentationModel*], ...
 
 All of them try more or less
 
@@ -25,21 +28,22 @@ All of them try more or less
 
 When you develop a Java Swing GUI in practice, you face the following additional challenges
 
-* how to enforce the proper threading (view elements like JPanel, JButton, ... only accessed by AWT-EventDispatchThread)
-* how to keep the view "responsive" by kicking off background actions (-> SwingWorker, ...)
-* how to connect an ActionListener on a e.g. a CancelButton with a just started SwingWorker
-* how to easily cancel background actions (SwingWorker) if the GUI is closed or parts of the GUI are closed
+* how to enforce the proper threading (view elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)
+* how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)
+* how to connect an ActionListener on e.g. a CancelButton with a just started SwingWorker and disconnect it after the SwingWorker finished
 * how to combine the results from multiple asynchronous actions (multiple SwingWorker's) into one result for the view
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability
 * ...
 
-So, which GUI architecture should you choose? What are the benefits and drawbacks? What libraries are available to have "quick results"?
+So, which GUI architecture should you choose? What are the benefits and drawbacks?
+Which are the important benefits/drawbacks for your current project?
+What libraries are available to make "quick progress" and not reinvent the wheel?
 
-These are a lot of questions, which are not easily answered for a Java Swing GUI.
+These are a lot of questions which are IMO not easily answered for a Java Swing GUI.
 
 === The idea
 
-One day, I had a deep lock at MVVM and came up with the idea of
+One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel[MVVM] and came up with the idea of
 
 * using https://github.com/ReactiveX/RxJava[RxJava]'s http://reactivex.io/documentation/subject.html[Subject] objects as "listenable" value objects for the ViewModel (aka PresentationModel)
 * https://github.com/ReactiveX/RxSwing[RxSwing] to connect (bind) the View widgets (JButton, JTextField, ...) to the ViewModel-Subjects
