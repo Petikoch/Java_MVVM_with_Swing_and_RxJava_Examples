@@ -77,7 +77,7 @@ image::MVVM_dependencies.png[]
 
 * Threading
 ** All the action between View -> ViewModel and ViewModel -> View happens on the SwingScheduler
-** All the action between ViewModel -> Model happens on Schedulers.io() (cached thread pool)
+** All the action between ViewModel -> Model happens on Schedulers.io() (= cached thread pool)
 
 * View
 ** DataBinding
@@ -87,7 +87,7 @@ image::MVVM_dependencies.png[]
 
 * ViewModel
 ** Per View exits a ViewModel
-** The ViewModel is not generic and represents the structure of the View 1:1
+** The ViewModel represents the structure of the View 1:1
 ** We use http://reactivex.io/documentation/subject.html[Subject]'s as "fields" in the ViewModel
 *** Each subject "field" in the ViewModel corresponds to one widget in the View
 *** We use the BehaviorSubject class for Subject instances, which is a stateful Subject to have the "current" state, an initial state and easy testability
