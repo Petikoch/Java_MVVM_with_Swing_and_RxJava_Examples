@@ -73,6 +73,30 @@ image::MVVM_dependencies.png[]
 * The Model "doesn't see" the ViewModel and "doesn't see" the View
 * We have acyclic dependencies
 
+==== Basic ideas behind the examples here
+
+* Threading
+** All the action between View -> ViewModel and ViewModel -> View happens on the SwingScheduler
+** All the action between ViewModel -> Model happens on Schedulers.io() (cached thread pool)
+
+* View
+** DataBinding
+*** We add a little "Binder" fluent API a la https://github.com/canoo/open-dolphin/blob/master/subprojects/shared/src/main/groovy/org/opendolphin/binding/Binder.groovy[open-dolphin's Binder] on top of RxJava
+** There is no other code than a) DataBinding code and b) plain GUI code in the View
+** "Large" View's are composed by combining multiple "small" View's
+
+* ViewModel
+** Per View exits a ViewModel
+** The ViewModel is not generic and represents the structure of the View 1:1
+** We use http://reactivex.io/documentation/subject.html[Subject]'s as "fields" in the ViewModel
+*** Each subject "field" in the ViewModel corresponds to one widget in the View
+*** We use the BehaviorSubject class for Subject instances, which is a stateful Subject to have the "current" state, an initial state and easy testability
+** The ViewModel handles all the "complicated" interaction stuff between View and Model
+
+* Model
+** The Model doesn't care about it's presentation and just offers an API
+** The Model is therefore fully focused on business logic and data
+
 === Examples
 
 TODO
@@ -81,9 +105,9 @@ TODO
 
 * Java *8* or later
 
-== Support
+== Feedback
 
-Please use GitHub issues and pull requests for support.
+Please use GitHub issues and pull requests for feedback or contributions.
 
 == Motivation
 
