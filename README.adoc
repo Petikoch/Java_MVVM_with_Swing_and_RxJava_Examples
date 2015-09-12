@@ -107,6 +107,16 @@ together with some additional fluent API code for "nice" DataBinding.
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example1[]
 
+* The Model pushes "hello world's" thru an Observable to the ViewModel (using a computational thread)
+* A JLabel in the View is bound to the `vm2v_info` field of the ViewModel
+* The `RxViewModel2SwingViewBinder` code does the switch to the `SwingScheduler`
+
+image::example1.png[]
+
+Check out also the tests:
+
+link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example1[]
+
 == Requirements
 
 * Java *8* or later
