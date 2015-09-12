@@ -17,11 +17,13 @@ package ch.petikoch.examples.mvvm_rxjava.example9
 
 import ch.petikoch.examples.mvvm_rxjava.AwtEdtSputnik
 import org.junit.runner.RunWith
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import javax.swing.*
 import java.util.concurrent.TimeUnit
 
+@Ignore("Does not run on the Travis-CI build server")
 @RunWith(AwtEdtSputnik.class)
 @SuppressWarnings(["GroovyAccessibility", "GroovyPointlessBoolean"])
 class Beispiel_9_AcceptanceTest extends Specification {
