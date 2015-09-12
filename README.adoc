@@ -98,6 +98,10 @@ image::MVVM_dependencies.png[]
 ** The Model doesn't care about it's presentation and just offers an API
 ** The Model is therefore fully focused on business logic and data
 
+As you can see, there is no kind of "framework" described here to implement MVVM.
+Instead, it's just the combination of standard JDK classes with the RxJava and RxSwing libraries
+together with some additional fluent API code for the DataBinding.
+
 === Examples
 
 TODO
