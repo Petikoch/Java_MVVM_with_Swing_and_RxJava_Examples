@@ -105,7 +105,7 @@ together with some additional fluent API code for "nice" DataBinding.
 
 === Example 1: Hello World (from the Model)
 
-link:../src/main/java/ch/petikoch/examples/mvvm_rxjava/example1[]
+link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example1[]
 
 == Requirements
 
