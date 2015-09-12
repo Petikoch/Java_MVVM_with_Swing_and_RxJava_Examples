@@ -73,7 +73,7 @@ image::MVVM_dependencies.png[]
 * The Model "doesn't see" the ViewModel and "doesn't see" the View
 * We have acyclic dependencies
 
-==== Basic ideas behind the examples here
+==== Basic ideas behind the example implementation here
 
 * Threading
 ** All the action between View -> ViewModel and ViewModel -> View happens on the SwingScheduler
