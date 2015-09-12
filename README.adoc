@@ -63,7 +63,7 @@ image::MVVMPattern.png[]
 * The ViewModel interacts with the Model through ordinary Model API call's
 * The Model API has some kind of callbacks to push data up to the ViewModel (dashed arrow)
 
-Seconds, let's look at the dependencies:
+Second, let's look at the dependencies:
 
 image::MVVM_dependencies.png[]
 
