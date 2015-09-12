@@ -1,0 +1,11 @@
+/.idea
+/.gradle
+/build
+/buildIntelliJ
+/classes
+**/build
+**/buildIntelliJ
+**/classes
+
+*.iml
+pom.xml

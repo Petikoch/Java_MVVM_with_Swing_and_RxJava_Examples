@@ -1,0 +1,94 @@
+plugins {
+    id "com.github.ben-manes.versions" version "0.11.3"
+    id "com.github.hierynomus.license" version "0.11.0"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+
+version = '0.0.1-SNAPSHOT'
+
+def fileEncoding = 'UTF-8'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+def googleGuavaVersion = '18.0'
+def rxJavaVersion = '1.0.14'
+def rxSwingVersion = '0.24.0'
+def jcipVersion = '1.0'
+def jsr305Version = '3.0.0'
+def commonsLang3Version = '3.4'
+
+def groovyVersion = '2.4.4'
+def spockVersion = '1.0-groovy-2.4'
+def cglibVersion = '3.1'
+def asmVersion = '5.0.4'
+def swingXVersion = '1.6.5-1'
+
+dependencies {
+    compile "com.google.guava:guava:${googleGuavaVersion}"
+    compile "io.reactivex:rxjava:${rxJavaVersion}"
+    compile "io.reactivex:rxswing:${rxSwingVersion}"
+    compile "net.jcip:jcip-annotations:${jcipVersion}"
+    compile "com.google.code.findbugs:jsr305:${jsr305Version}"
+    compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    compile "org.swinglabs.swingx:swingx-all:${swingXVersion}"
+
+    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    testCompile("org.spockframework:spock-core:${spockVersion}") {
+        exclude group: 'org.codehaus.groovy'
+    }
+    testCompile("cglib:cglib:${cglibVersion}") { // spock mocks
+        exclude group: 'org.ow2.asm'
+    }
+    testCompile "org.ow2.asm:asm:${asmVersion}" // spock mocks
+}
+
+sourceSets.main.java.srcDirs = ['src/main/java']
+sourceSets.test.java.srcDirs = []
+sourceSets.main.groovy.srcDirs = []
+sourceSets.test.groovy.srcDirs = ['src/test/groovy']
+
+test {
+    systemProperty 'file.encoding', fileEncoding
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = fileEncoding
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': project.name,
+                'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date(),
+                'Built-JDK': System.getProperty('java.version'),
+                'Built-Gradle': gradle.gradleVersion
+    }
+}
+
+// work around unnecessary timestamp in generated file which always causes dirty files in version control
+// https://issues.gradle.org/browse/GRADLE-2293
+task adjustEclipseSettingsFile << {
+    ant.replaceregexp(match: '^#.*', replace: '', flags: 'g', byline: true) {
+        fileset(dir: project.projectDir, includes: '.settings/org.eclipse.jdt.core.prefs')
+    }
+}
+eclipseJdt.finalizedBy adjustEclipseSettingsFile
+
+// http://forums.gradle.org/gradle/topics/set_maxparallelforks_to_number_of_cores_on_the_current_machine
+tasks.withType(Test) {
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
+}
+
+license {
+    header = rootProject.file('config/HEADER_apache2.txt')
+    strictCheck = true
+}
+

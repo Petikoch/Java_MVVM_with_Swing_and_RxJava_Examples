@@ -1,0 +1,38 @@
+= Java MVVM RxJava-based examples
+Peti Koch
+:imagesdir: ./docs
+:project-name: Java_MVVM_RxJava-based_examples
+:github-branch: master
+:github-user: Petikoch
+:bintray-user: petikoch
+
+image:http://img.shields.io/badge/license-ASF2-blue.svg["Apache License 2", link="http://www.apache.org/licenses/LICENSE-2.0.txt"]
+
+== Introduction
+
+TODO
+
+=== Examples
+
+TODO
+
+== Requirements
+
+To use this library you need
+
+* Java *8* or later
+
+== Support
+
+Please use GitHub issues and pull requests for support.
+
+
+== Motivation
+
+TODO
+
+
+
+Best regards,
+
+image::Signature.jpg[]
