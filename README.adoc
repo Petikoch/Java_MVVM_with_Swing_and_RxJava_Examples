@@ -22,8 +22,8 @@ All of them try more or less
 * to decouple the "different things" (widgets, forms, business logic, ...) from each other
 * make the "different things" easily testable (unit-testable)
 * try to separate presentation from behaviour
-* make the view easily "exchangeable"
-* concentrate the business logic into e.g. the model, which "lives longer" (in years) than the often changing GUI technologies
+* make the view easily "exchangeable" (e.g. replace Swing with JavaFX)
+* concentrate the business logic into e.g. the "model", which "lives longer" (in years) than the often changing GUI technologies
 * ...
 
 When you develop a Java Swing GUI in practice, you face the following additional challenges
@@ -35,8 +35,7 @@ When you develop a Java Swing GUI in practice, you face the following additional
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability
 * ...
 
-So, which GUI architecture should you choose? What are the benefits and drawbacks?
-Which are the important benefits/drawbacks for your current project?
+So, which GUI architecture should you choose? What are the benefits and drawbacks in general? And for your current project?
 What libraries are available to make "quick progress" and not reinvent the wheel?
 
 These are a lot of questions which are IMO not easily answered for a Java Swing GUI.
@@ -50,7 +49,7 @@ One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel
 * https://github.com/ReactiveX/RxJava[RxJava] to react on changes of the ViewModel-Subjects and interact with the Model (backend)
 * use RxJava's http://reactivex.io/documentation/scheduler.html[Scheduler] and the RxSwing https://github.com/ReactiveX/RxSwing/blob/0.x/src/main/java/rx/schedulers/SwingScheduler.java[SwingScheduler] to do the threading
 
-The solution was really nice and I'd like to share it with you through this github repo.
+I started with some small examples for different aspects. The solution was really nice IMO and I'd like to share it with you now through this github repo.
 
 === Implementing MVVM using RxJava and RxSwing
 
