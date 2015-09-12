@@ -3,9 +3,12 @@ language: java
 jdk:
   - oraclejdk8
 
-# https://joerglenhard.wordpress.com/2013/10/01/using-travis-ci-with-gradle-wrapper
 before_install:
+# https://joerglenhard.wordpress.com/2013/10/01/using-travis-ci-with-gradle-wrapper
  - chmod +x gradlew
+# http://ecmendenhall.github.io/blog/blog/2013/05/28/two-travis-ci-solutions/
+# enable GUI subsystem, otherwise we can't test the Swing parts (java.awt.HeadlessException)
+ - "export DISPLAY=:99.0"
  - "sh -e /etc/init.d/xvfb start"
 
 env:
