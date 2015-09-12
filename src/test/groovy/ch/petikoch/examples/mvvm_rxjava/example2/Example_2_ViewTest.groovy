@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 package ch.petikoch.examples.mvvm_rxjava.example2
-
 import ch.petikoch.examples.mvvm_rxjava.datatypes.NameFirstname
-import ch.petikoch.examples.mvvm_rxjava.utils.SwingUtilities2
 import spock.lang.Specification
+
+import static ch.petikoch.examples.mvvm_rxjava.utils.SwingUtilities2.executeOnAwtEdt
 
 @SuppressWarnings("GroovyAccessibility")
 class Example_2_ViewTest extends Specification {
@@ -26,39 +26,39 @@ class Example_2_ViewTest extends Specification {
     def testee = createTestee()
 
     private Example_2_View createTestee() {
-        return SwingUtilities2.executeOnAwtEdt({
+        return executeOnAwtEdt({
             def view = new Example_2_View()
             view.bind(viewModel)
             return view
         })
     }
 
-    def 'Binding View -> ViewModel funktioniert'() {
+    def 'Binding View -> ViewModel works'() {
         when:
         def name1 = 'John'
         def firstname1 = 'Smith'
-        SwingUtilities2.executeOnAwtEdt({ testee.nameTextField.setText(name1) })
-        SwingUtilities2.executeOnAwtEdt({ testee.firstnameTextField.setText(firstname1) })
+        executeOnAwtEdt({ testee.nameTextField.setText(name1) })
+        executeOnAwtEdt({ testee.firstnameTextField.setText(firstname1) })
         then:
         viewModel.v2vm_name.getValue() == name1
         viewModel.v2vm_firstname.getValue() == firstname1
 
         when:
-        SwingUtilities2.executeOnAwtEdt({ testee.submitButton.doClick() })
+        executeOnAwtEdt({ testee.submitButton.doClick() })
         then:
         viewModel.vm2m_nameFirstname.getValue() == new NameFirstname(name1, firstname1)
 
         when:
         def name2 = 'Ben'
         def firstname2 = 'Boom'
-        SwingUtilities2.executeOnAwtEdt({ testee.nameTextField.setText(name2) })
-        SwingUtilities2.executeOnAwtEdt({ testee.firstnameTextField.setText(firstname2) })
+        executeOnAwtEdt({ testee.nameTextField.setText(name2) })
+        executeOnAwtEdt({ testee.firstnameTextField.setText(firstname2) })
         then:
         viewModel.v2vm_name.getValue() == name2
         viewModel.v2vm_firstname.getValue() == firstname2
 
         when:
-        SwingUtilities2.executeOnAwtEdt({ testee.submitButton.doClick() })
+        executeOnAwtEdt({ testee.submitButton.doClick() })
         then:
         viewModel.vm2m_nameFirstname.getValue() == new NameFirstname(name2, firstname2)
     }
