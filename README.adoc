@@ -103,6 +103,8 @@ together with some additional fluent API code for "nice" DataBinding.
 
 == Examples
 
+The examples start simple and get more and more complicated, adding additional aspects/features.
+
 === Example 1: Hello World (from the Model)
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example1[]
@@ -113,9 +115,23 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example1[]
 
 image::example1.png[]
 
-See the tests:
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example1[]
+
+=== Example 2: Form submit
+
+link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example2[]
+
+* A simple form submit of to textfields
+* The ViewModel combines the two textfield values into one DTO
+* On each submit, the ViewModel calls the Model API on a IO-Thread (see `RxViewModel2ModelBinder`)
+
+image::example2.png[]
+
+Tests:
+
+link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example2[]
 
 == Requirements
 
