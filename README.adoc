@@ -228,7 +228,7 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example8[]
 ** "Fast producer, slow consumer" kind of problem
 * We need to think about backpressure
 ** We could slow down the `LogRow` production (blocking backpressure)
-** Or we could drop the ones which are "too much", keep up "full speed" and show only some of the `LogRow` s
+** Or we could drop the `LogRow` s which are "too much", keep up "full speed" and show only some of the `LogRow` s
 ** The example uses dropping
 
 image::example8.png[]
