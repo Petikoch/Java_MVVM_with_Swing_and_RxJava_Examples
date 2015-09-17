@@ -74,7 +74,7 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
 
             Single<Boolean> modelCallFinished = Single.<Boolean>create(singleSubscriber -> {
                 try {
-                    model.submit(nameFirstname);
+                    model.createAccount(nameFirstname);
                     if (!singleSubscriber.isUnsubscribed()) {
                         singleSubscriber.onSuccess(true);
                     }

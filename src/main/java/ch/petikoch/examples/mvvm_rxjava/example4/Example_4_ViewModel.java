@@ -64,7 +64,7 @@ class Example_4_ViewModel implements IViewModel<Example_4_Model> {
     @Override
     public void connectTo(final Example_4_Model model) {
         onEventFrom(vm2m_nameFirstname).execute(nameFirstname -> {
-            model.submit(nameFirstname);
+            model.createAccount(nameFirstname);
 
             vm2v_nameEnabled.onNext(true);
             vm2v_firstnameEnabled.onNext(true);

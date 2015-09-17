@@ -22,7 +22,7 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 class Example_5_Model {
 
-    public void submit(NameFirstname nameFirstname) throws InterruptedException {
+    public void createAccount(NameFirstname nameFirstname) throws InterruptedException {
         SysOutUtils.sysout("Processing: " + nameFirstname.toString());
         Thread.sleep(5000);    // = Simulation of a "very slow" backend
         SysOutUtils.sysout("Finished: " + nameFirstname.toString());

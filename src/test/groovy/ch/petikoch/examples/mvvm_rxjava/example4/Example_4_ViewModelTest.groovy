@@ -33,7 +33,7 @@ class Example_4_ViewModelTest extends Specification {
         setup:
         testee.connectTo(modelMock)
         def modelSubmitLatch = new CountDownLatch(1)
-        modelMock.submit(_) >> {
+        modelMock.createAccount(_) >> {
             modelSubmitLatch.await()
         }
         testee.v2vm_name.onNext('Smith')

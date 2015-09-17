@@ -23,7 +23,7 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 class Example_4_Model {
 
-    public void submit(NameFirstname nameFirstname) {
+    public void createAccount(NameFirstname nameFirstname) {
         SysOutUtils.sysout("Processing: " + nameFirstname.toString());
         VariousUtils.sleep(2000);    // = Simulation of a "slow" backend
         SysOutUtils.sysout("Finished: " + nameFirstname.toString());

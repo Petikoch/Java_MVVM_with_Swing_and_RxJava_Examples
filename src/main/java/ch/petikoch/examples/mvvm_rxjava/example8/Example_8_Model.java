@@ -33,7 +33,7 @@ import java.util.stream.IntStream;
 
 class Example_8_Model {
 
-    public Observable<LogRow> log() {
+    public Observable<LogRow> getLogs() {
 
         SerializedSubject<LogRow, LogRow> subject
                 = new SerializedSubject<>(PublishSubject.create());

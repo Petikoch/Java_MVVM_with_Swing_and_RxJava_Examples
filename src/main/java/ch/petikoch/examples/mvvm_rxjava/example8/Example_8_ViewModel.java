@@ -34,7 +34,7 @@ class Example_8_ViewModel implements IViewModel<Example_8_Model> {
     }
 
     public void connectTo(final Example_8_Model model) {
-        model.log().subscribe(vm2v_log);
+        model.getLogs().subscribe(vm2v_log);
     }
 
 }

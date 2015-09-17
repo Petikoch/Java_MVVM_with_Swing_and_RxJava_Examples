@@ -38,7 +38,7 @@ class Example_5A_ViewModelTest extends Specification {
         def modelSubmitLatch = new CountDownLatch(1)
         def modelSubmitStarted = new CountDownLatch(1)
         def interruptHappened = new AtomicBoolean(false)
-        modelMock.submit(_) >> {
+        modelMock.createAccount(_) >> {
             return Single.<FinishedIndicator> create { subscriber ->
                 modelSubmitStarted.countDown()
                 try {

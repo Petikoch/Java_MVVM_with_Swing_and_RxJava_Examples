@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 class Example_7_Model {
 
-    public Observable<LogRow> log() {
+    public Observable<LogRow> getLogs() {
         return Observable.interval(1, TimeUnit.SECONDS)
                 .map(incrementingNumber -> new LogRow(
                         DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()),

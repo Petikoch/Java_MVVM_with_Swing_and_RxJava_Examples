@@ -25,7 +25,7 @@ import rx.Single;
 @ThreadSafe
 class Example_5a_Model {
 
-    public Single<FinishedIndicator> submit(NameFirstname nameFirstname) {
+    public Single<FinishedIndicator> createAccount(NameFirstname nameFirstname) {
         return AsyncUtils.<FinishedIndicator>executeAsync(() -> {
             try {
                 SysOutUtils.sysout("Processing: " + nameFirstname.toString());

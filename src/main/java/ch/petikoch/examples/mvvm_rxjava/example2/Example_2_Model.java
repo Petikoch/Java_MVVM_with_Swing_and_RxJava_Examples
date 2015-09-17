@@ -22,7 +22,7 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 class Example_2_Model {
 
-    public void submit(NameFirstname nameFirstname) {
+    public void createAccount(NameFirstname nameFirstname) {
         SysOutUtils.sysout("Model: " + nameFirstname.toString());
     }
 }

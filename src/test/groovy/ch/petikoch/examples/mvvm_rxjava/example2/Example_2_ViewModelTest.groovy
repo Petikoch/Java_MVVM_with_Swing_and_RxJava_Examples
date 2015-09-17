@@ -36,7 +36,7 @@ class Example_2_ViewModelTest extends Specification {
 
         then:
         conditions.eventually {
-            assert { 1 * modelMock.submit(nameFirstname) }
+            assert { 1 * modelMock.createAccount(nameFirstname) }
         }
     }
 }
