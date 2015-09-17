@@ -210,8 +210,8 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example6[]
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example7[]
 
-* The model publishes `LogRow`s (computational thread)
-* These are added in the view as rows of a `JTable` (swing thread)
+* The model publishes `LogRow` s (using a computational thread)
+* These are added in the view as rows of a `JTable` (using GUI thread)
 
 image::example7.png[]
 
@@ -221,9 +221,19 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example7[]
 
 === Example 8: Log table with LogRow's pushed up from the Model and dealing with backpressure
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example8[]
+
+* The model uses a threadpool to create plenty of `LogRow` s (using as many threads as there are CPU cores)
+* Since the view runs on a single thread, it can't keep up with the pace
+** "Fast producer, slow consumer" kind of problem
+* We need to think about backpressure
+** We could slow down the `LogRow` production (blocking backpressure)
+** Or we could drop the ones which are "too much", keep up "full speed" and show only some of the `LogRow` s
+** The example uses dropping
+
+image::example8.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example8[]
 
