@@ -17,7 +17,6 @@ package ch.petikoch.examples.mvvm_rxjava.example8;
 
 import ch.petikoch.examples.mvvm_rxjava.datatypes.LogRow;
 import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.IViewModel;
-import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxModel2ViewModelBinder;
 import net.jcip.annotations.ThreadSafe;
 import rx.subjects.BehaviorSubject;
 
@@ -35,7 +34,7 @@ class Example_8_ViewModel implements IViewModel<Example_8_Model> {
     }
 
     public void connectTo(final Example_8_Model model) {
-        RxModel2ViewModelBinder.bindModel(model.log()).toViewModel(vm2v_log);
+        model.log().subscribe(vm2v_log);
     }
 
 }

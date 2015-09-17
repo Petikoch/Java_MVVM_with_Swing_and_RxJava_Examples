@@ -16,7 +16,6 @@
 package ch.petikoch.examples.mvvm_rxjava.example1;
 
 import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.IViewModel;
-import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxModel2ViewModelBinder;
 import net.jcip.annotations.ThreadSafe;
 import rx.subjects.BehaviorSubject;
 
@@ -34,7 +33,7 @@ class Example_1_ViewModel implements IViewModel<Example_1_Model> {
     }
 
     public void connectTo(final Example_1_Model model) {
-        RxModel2ViewModelBinder.bindModel(model.infos()).toViewModel(vm2v_info);
+        model.infos().subscribe(vm2v_info);
     }
 
 }
