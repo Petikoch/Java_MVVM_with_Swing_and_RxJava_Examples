@@ -6,6 +6,10 @@
 **/build
 **/buildIntelliJ
 **/classes
+**/bin
 
 *.iml
+.classpath
+.project
 pom.xml
+
