@@ -28,7 +28,7 @@ import rx.subjects.PublishSubject;
 
 import java.awt.event.ActionEvent;
 
-import static ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxViewModel2ModelBinder.bindViewModel;
+import static ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxModelInvoker.onEventFrom;
 
 @ThreadSafe
 class Example_5_ViewModel implements IViewModel<Example_5_Model> {
@@ -70,7 +70,7 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
 
     @Override
     public void connectTo(final Example_5_Model model) {
-        bindViewModel(vm2m_nameFirstname).toAction(nameFirstname -> {
+        onEventFrom(vm2m_nameFirstname).execute(nameFirstname -> {
 
             Single<Boolean> modelCallFinished = Single.<Boolean>create(singleSubscriber -> {
                 try {

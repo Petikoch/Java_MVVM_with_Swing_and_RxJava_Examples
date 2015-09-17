@@ -27,7 +27,7 @@ import rx.subjects.PublishSubject;
 
 import java.awt.event.ActionEvent;
 
-import static ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxViewModel2ModelBinder.bindViewModel;
+import static ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxModelInvoker.onEventFrom;
 
 @ThreadSafe
 class Example_6_ViewModel implements IViewModel<Example_6_Model> {
@@ -77,7 +77,7 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
 
     @Override
     public void connectTo(final Example_6_Model model) {
-        bindViewModel(vm2m_nameFirstname).toAction(nameFirstname -> {
+        onEventFrom(vm2m_nameFirstname).execute(nameFirstname -> {
 
             vm2v_resultat1.onNext("Creating acount...");
             vm2v_resultat2.onNext("Sending email...");

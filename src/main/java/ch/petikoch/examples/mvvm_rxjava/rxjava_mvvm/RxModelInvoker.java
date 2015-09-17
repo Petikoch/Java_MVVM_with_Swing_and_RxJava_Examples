@@ -19,21 +19,21 @@ import rx.Observable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class RxViewModel2ModelBinder {
+public class RxModelInvoker {
 
-    public static <T> BindOfAble<T> bindViewModel(Observable<T> source) {
-        return new BindOfAble<>(source);
+    public static <T> ModelInvoker<T> onEventFrom(Observable<T> source) {
+        return new ModelInvoker<>(source);
     }
 
-    public static class BindOfAble<T> {
+    public static class ModelInvoker<T> {
 
         private final Observable<T> source;
 
-        private BindOfAble(final Observable<T> source) {
+        private ModelInvoker(final Observable<T> source) {
             this.source = source;
         }
 
-        public void toAction(final Action1<? super T> onNext) {
+        public void execute(final Action1<? super T> onNext) {
             source.observeOn(Schedulers.io()).subscribe(onNext);
         }
 
