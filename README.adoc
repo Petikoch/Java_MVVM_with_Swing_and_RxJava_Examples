@@ -49,6 +49,8 @@ One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel
 * https://github.com/ReactiveX/RxJava[RxJava] to react on changes of the ViewModel-Subjects and interact with the Model (backend)
 * use RxJava's http://reactivex.io/documentation/scheduler.html[Scheduler] and the RxSwing https://github.com/ReactiveX/RxSwing/blob/0.x/src/main/java/rx/schedulers/SwingScheduler.java[SwingScheduler] to do the threading
 
+image::Java_MVVM_RxJava_basic_idea.png[]
+
 I started with some small examples for different aspects. The solution was really nice IMO and I'd like to share it with you now through this github repo.
 
 == Implementing MVVM using RxJava and RxSwing
