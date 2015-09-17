@@ -32,6 +32,7 @@ When you develop a Java Swing GUI in practice, you face the following additional
 * how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)
 * how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished
 * how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view
+* how to implement Undo/Redo, Validation, Exception-Handling, Timeouts, ...
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability
 * ...
 
@@ -106,6 +107,9 @@ together with some additional fluent API code for "nice" DataBinding.
 == Examples
 
 The examples start simple and get more and more complicated, adding additional aspects/features.
+
+Scope: The *current* examples are all "one process examples". View, ViewModel and Model run as one process in the same JVM.
+_Upcoming_ examples might include JavaFx, Android, Web and of course some kind of remoting to split "things" across multiple processes.
 
 === Example 1: Hello World (from the Model)
 
