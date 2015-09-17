@@ -16,7 +16,6 @@
 package ch.petikoch.examples.mvvm_rxjava.example2;
 
 import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.IView;
-import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.RxSwingView2ViewModelBinder;
 import ch.petikoch.examples.mvvm_rxjava.widgets.StrictThreadingJButton;
 import ch.petikoch.examples.mvvm_rxjava.widgets.StrictThreadingJFrame;
 import ch.petikoch.examples.mvvm_rxjava.widgets.StrictThreadingJLabel;
@@ -37,7 +36,7 @@ class Example_2_View extends StrictThreadingJFrame implements IView<Example_2_Vi
     public void bind(final Example_2_ViewModel viewModel) {
         bindSwingView(nameTextField).toViewModel(viewModel.v2vm_name);
         bindSwingView(firstnameTextField).toViewModel(viewModel.v2vm_firstname);
-        RxSwingView2ViewModelBinder.bindSwingView(submitButton).toViewModel(viewModel.v2vm_submitButtonEvents);
+        bindSwingView(submitButton).toViewModel(viewModel.v2vm_submitButtonEvents);
     }
 
     public Example_2_View() {
