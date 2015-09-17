@@ -78,8 +78,8 @@ image::MVVM_dependencies.png[]
 ==== Basic ideas behind the implementation of the examples here
 
 * Threading
-** All the action between View -> ViewModel and ViewModel -> View happens on the `SwingScheduler
-** All the action between ViewModel -> Model happens on `Schedulers.io()` (= cached thread pool)
+** All the action between View and ViewModel happens on the `SwingScheduler`
+** All the action between ViewModel and Model happens on `Schedulers.io()` (= cached thread pool)
 
 * View
 ** DataBinding
@@ -89,7 +89,7 @@ image::MVVM_dependencies.png[]
 
 * ViewModel
 ** Per View exits a ViewModel
-** The ViewModel represents the structure of the View 1:1
+*** The ViewModel represents the structure of the View 1:1
 ** We use http://reactivex.io/documentation/subject.html[Subject]'s as "fields" in the ViewModel
 *** Each subject "field" in the ViewModel corresponds to one widget in the View
 *** We use a little prefix for the "field" name like `v2vm_` or `vm2v_` to indicate the flow direction
@@ -106,9 +106,9 @@ together with some additional fluent API code for "nice" DataBinding.
 
 == Examples
 
-The examples start simple and get more and more complicated, adding additional aspects/features.
+The examples start simple and get more and more complicated, adding additional aspects and features.
 
-Scope: The *current* examples are all "one process examples". View, ViewModel and Model run as one process in the same JVM.
+Scope:The *current* examples are all "everything in one process" examples: View, ViewModel and Model run as one process in the same JVM.
 _Upcoming_ examples might include JavaFx, Android, Web and of course some kind of remoting to split "things" across multiple processes.
 
 === Example 1: Hello World (from the Model)
