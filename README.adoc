@@ -136,6 +136,10 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example2[]
 
 image::example2.png[]
 
+This example is the implementation of the initial idea:
+
+image::Java_MVVM_RxJava_basic_idea.png[]
+
 Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example2[]
