@@ -248,6 +248,8 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example9[]
 
 image::example9.png[]
 
+image::example9_2.png[]
+
 Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example9[]
