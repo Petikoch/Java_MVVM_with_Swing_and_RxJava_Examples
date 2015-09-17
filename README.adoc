@@ -239,25 +239,44 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example8[]
 
 === Example 9: Structural changes at runtime in the View (and GUI composition)
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example9[]
+
+* So far the views were very static
+* Now we have structural changes at runtime, think of a wizard with it's steps
+* Parts of the views remain static (header, footer)
+* Therefore we need some kind of view composition
+
+image::example9.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example9[]
 
 === Example 10: Composition of GUI's and communication from outer ViewModel's to inner ViewModel's
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example10[]
+
+* View / ViewModel composition
+** How can on "outer" component communicate with "inner" components?
+*** How to propagate the "edit" state to the inner components?
+
+image::example10.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example10[]
 
 === Example 11: Composition of GUI's and communication from inner ViewModel's to outer ViewModel's (dirty flag, Save Button)
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example11[]
+
+* View / ViewModel composition
+** How can on "inner" component communicate with an "outer" component?
+*** "Dirty" flag of "inner" component enables the "Save" button of "outer" component
+
+image::example11.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example11[]
 
