@@ -109,7 +109,7 @@ together with some additional fluent API code for "nice" DataBinding.
 The examples start simple and get more and more complicated, adding additional aspects and features.
 
 Scope: +
-The *current* examples are all "everything in one process" examples: View, ViewModel and Model run as one process in the same JVM. +
+The *current* examples are all "everything in one process" examples: View, ViewModel and Model run in one process in the same JVM. +
 Upcoming examples might include JavaFx, Android, Web and of course some kind of remoting to split "things" across multiple processes.
 
 === Example 1: Hello World (from the Model)
