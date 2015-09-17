@@ -52,7 +52,7 @@ One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel
 
 image::Java_MVVM_RxJava_basic_idea.png[]
 
-I started with some small examples for different aspects. The solution was really nice IMO and I'd like to share it with you now through this github repo.
+I started with some small examples for different aspects. The solution was really nice IMO and I'd like to share it with you through this github repo.
 
 == Implementing MVVM using RxJava and RxSwing
 
