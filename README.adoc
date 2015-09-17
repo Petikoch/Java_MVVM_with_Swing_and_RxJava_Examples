@@ -146,49 +146,76 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example2[]
 
 === Example 3: Form submit with Submit Button enabling
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example3[]
+
+* Same as Example 2
+* But: Submit button is only enabled, if both textfields contain a value
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example3[]
 
 === Example 4: Form submit with form disabling / reenabling
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example4[]
+
+* Same as Example 3
+* But: The form is completely disabled during the submit processing time
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example4[]
 
 === Example 5: Form submit with cancellation and classic "blocking" Model API
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example5[]
+
+* Same as Example 4
+* You can cancel the submit processing
+* The model has a classic "blocking" API
+
+image::example5.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example5[]
 
 === Example 5a: Form submit with cancellation and "non-blocking" Model API
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example5a[]
+
+* Same as Example 5
+* The model has a "non-blocking" API, the ViewModel gets simpler
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example5a[]
 
 === Example 6: Form submit with combining two asynchronous backend actions
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example6[]
+
+* Same as Example 5a
+* But with two model API calls running in two different threads
+* Waiting for both of them
+* Cancellation for both of them
+
+image::example6.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example6[]
 
 === Example 7: Log table with LogRow's pushed up from the Model
 
-TODO
-
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example7[]
+
+* The model publishes `LogRow`s (computational thread)
+* These are added in the view as rows of a `JTable` (swing thread)
+
+image::example7.png[]
+
+Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example7[]
 
