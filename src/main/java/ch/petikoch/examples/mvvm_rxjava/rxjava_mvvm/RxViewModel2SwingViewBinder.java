@@ -45,7 +45,8 @@ public class RxViewModel2SwingViewBinder {
         }
 
         public void toSwingViewEnabledPropertyOf(JComponent target) {
-            source.observeOn(SwingScheduler.getInstance())
+            source.onBackpressureLatest()
+                    .observeOn(SwingScheduler.getInstance())
                     .subscribe(target::setEnabled);
         }
     }
@@ -59,12 +60,14 @@ public class RxViewModel2SwingViewBinder {
         }
 
         public void toSwingViewText(JTextComponent target) {
-            source.observeOn(SwingScheduler.getInstance())
+            source.onBackpressureLatest()
+                    .observeOn(SwingScheduler.getInstance())
                     .subscribe(target::setText);
         }
 
         public void toSwingViewLabel(JLabel target) {
-            source.observeOn(SwingScheduler.getInstance())
+            source.onBackpressureLatest()
+                    .observeOn(SwingScheduler.getInstance())
                     .subscribe(target::setText);
         }
     }
