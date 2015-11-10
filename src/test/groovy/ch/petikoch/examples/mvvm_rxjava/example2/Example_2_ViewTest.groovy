@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package ch.petikoch.examples.mvvm_rxjava.example2
+
 import ch.petikoch.examples.mvvm_rxjava.datatypes.NameFirstname
 import spock.lang.Specification
 
@@ -37,28 +38,28 @@ class Example_2_ViewTest extends Specification {
         when:
         def name1 = 'John'
         def firstname1 = 'Smith'
-        executeOnAwtEdt({ testee.nameTextField.setText(name1) })
-        executeOnAwtEdt({ testee.firstnameTextField.setText(firstname1) })
+        executeOnAwtEdt { testee.nameTextField.setText(name1) }
+        executeOnAwtEdt { testee.firstnameTextField.setText(firstname1) }
         then:
         viewModel.v2vm_name.getValue() == name1
         viewModel.v2vm_firstname.getValue() == firstname1
 
         when:
-        executeOnAwtEdt({ testee.submitButton.doClick() })
+        executeOnAwtEdt { testee.submitButton.doClick() }
         then:
         viewModel.vm2m_nameFirstname.getValue() == new NameFirstname(name1, firstname1)
 
         when:
         def name2 = 'Ben'
         def firstname2 = 'Boom'
-        executeOnAwtEdt({ testee.nameTextField.setText(name2) })
-        executeOnAwtEdt({ testee.firstnameTextField.setText(firstname2) })
+        executeOnAwtEdt { testee.nameTextField.setText(name2) }
+        executeOnAwtEdt { testee.firstnameTextField.setText(firstname2) }
         then:
         viewModel.v2vm_name.getValue() == name2
         viewModel.v2vm_firstname.getValue() == firstname2
 
         when:
-        executeOnAwtEdt({ testee.submitButton.doClick() })
+        executeOnAwtEdt { testee.submitButton.doClick() }
         then:
         viewModel.vm2m_nameFirstname.getValue() == new NameFirstname(name2, firstname2)
     }

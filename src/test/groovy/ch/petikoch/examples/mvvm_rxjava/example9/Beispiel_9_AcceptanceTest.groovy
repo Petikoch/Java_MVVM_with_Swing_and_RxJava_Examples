@@ -48,6 +48,7 @@ class Beispiel_9_AcceptanceTest extends Specification {
         println "Test finished in ${durationMs} ms"
     }
 
+
     def 'Full round trip acceptance Test'() {
         when:
         view.setVisible(true);
