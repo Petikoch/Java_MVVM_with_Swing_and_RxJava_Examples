@@ -70,7 +70,7 @@ class Example_5_ViewModel implements IViewModel<Example_5_Model> {
 
     @Override
     public void connectTo(final Example_5_Model model) {
-        onEventFrom(vm2m_nameFirstname).execute(nameFirstname -> {
+        onEventFrom(vm2m_nameFirstname).executeAsync(nameFirstname -> {
 
             Single<Boolean> modelCallFinished = Single.<Boolean>create(singleSubscriber -> {
                 try {

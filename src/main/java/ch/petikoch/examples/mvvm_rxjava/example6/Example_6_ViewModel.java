@@ -77,7 +77,7 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
 
     @Override
     public void connectTo(final Example_6_Model model) {
-        onEventFrom(vm2m_nameFirstname).execute(nameFirstname -> {
+        onEventFrom(vm2m_nameFirstname).executeAsync(nameFirstname -> {
 
             vm2v_resultat1.onNext("Creating acount...");
             vm2v_resultat2.onNext("Sending email...");

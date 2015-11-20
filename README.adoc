@@ -132,7 +132,7 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example2[]
 
 * A simple form submit of two textfields
 * The ViewModel combines the two textfield values into one DTO and calls the Model API on a IO-Thread
-* The `RxViewModel2ModelBinder` code does the switch to the `Schedulers.io()` scheduler
+* The `RxModelInvoker` code does the switch to the `Schedulers.io()` scheduler
 
 image::example2.png[]
 

@@ -15,9 +15,9 @@
  */
 package ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm;
 
+import ch.petikoch.examples.mvvm_rxjava.utils.AsyncUtils;
 import rx.Observable;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 public class RxModelInvoker {
 
@@ -33,10 +33,10 @@ public class RxModelInvoker {
             this.source = source;
         }
 
-        public void execute(final Action1<? super T> onNext) {
-            source.observeOn(Schedulers.io()).subscribe(onNext);
+        public void executeAsync(final Action1<? super T> onNext) {
+            source.subscribe(t -> {
+                AsyncUtils.executeAsync(() -> onNext.call(t));
+            });
         }
-
     }
-
 }

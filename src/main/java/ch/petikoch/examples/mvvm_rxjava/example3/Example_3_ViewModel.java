@@ -54,6 +54,6 @@ class Example_3_ViewModel implements IViewModel<Example_3_Model> {
 
     @Override
     public void connectTo(final Example_3_Model model) {
-        onEventFrom(vm2m_nameFirstname).execute(model::createAccount);
+        onEventFrom(vm2m_nameFirstname).executeAsync(model::createAccount);
     }
 }
