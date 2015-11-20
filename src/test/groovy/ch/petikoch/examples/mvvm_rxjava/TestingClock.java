@@ -34,6 +34,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * But if you have more than one {@link java.util.concurrent.CountDownLatch} in a testcase,
  * it's probably easier to use <b>one</b> {@link TestingClock} instead.
  */
+// experimental
 public class TestingClock {
 
     private final AtomicLong internalTime;
