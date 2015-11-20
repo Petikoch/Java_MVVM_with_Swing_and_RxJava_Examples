@@ -19,7 +19,7 @@ repositories {
 }
 
 def googleGuavaVersion = '18.0'
-def rxJavaVersion = '1.0.14'
+def rxJavaVersion = '1.0.16'
 def rxSwingVersion = '0.25.0'
 def jcipVersion = '1.0'
 def jsr305Version = '3.0.1'
@@ -27,8 +27,7 @@ def commonsLang3Version = '3.4'
 
 def groovyVersion = '2.4.5'
 def spockVersion = '1.0-groovy-2.4'
-def cglibVersion = '3.1'
-def asmVersion = '5.0.4'
+def cglibVersion = '3.2.0'
 def swingXVersion = '1.6.5-1'
 
 dependencies {
@@ -44,10 +43,7 @@ dependencies {
     testCompile("org.spockframework:spock-core:${spockVersion}") {
         exclude group: 'org.codehaus.groovy'
     }
-    testCompile("cglib:cglib:${cglibVersion}") { // spock mocks
-        exclude group: 'org.ow2.asm'
-    }
-    testCompile "org.ow2.asm:asm:${asmVersion}" // spock mocks
+    testCompile("cglib:cglib:${cglibVersion}")  // spock mocks
 }
 
 sourceSets.main.java.srcDirs = ['src/main/java']
