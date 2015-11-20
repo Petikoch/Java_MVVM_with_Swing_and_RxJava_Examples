@@ -17,7 +17,7 @@ package ch.petikoch.examples.mvvm_rxjava
 
 class AwaitUtils {
 
-    static void await(Closure<Boolean> condition) {
+    static void awaitUntil(Closure<Boolean> condition) {
         while (!condition.call()) {
             Thread.sleep(1)
         }

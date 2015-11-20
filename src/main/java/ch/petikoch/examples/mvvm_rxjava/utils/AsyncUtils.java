@@ -19,42 +19,49 @@ import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.FinishedIndicator;
 import rx.Single;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
-import rx.subjects.ReplaySubject;
+import rx.subjects.AsyncSubject;
 
 import java.util.concurrent.Callable;
 
+/**
+ * Something like <a href="https://github.com/ReactiveX/RxJavaAsyncUtil/blob/0.x/src/main/java/rx/util/async/Async.java">RxJavaAsyncUtil</a>
+ * but with {@link Single} as return types.
+ */
 public class AsyncUtils {
 
+    /**
+     * @see #executeAsync(Callable)
+     */
     // experimental
     public static Single<FinishedIndicator> executeAsync(Runnable runnable) {
-        ReplaySubject<FinishedIndicator> finished = ReplaySubject.create();
-
-        final Subscription asyncOp = Single.<FinishedIndicator>create(singleSubscriber -> {
-            try {
-                runnable.run();
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onSuccess(FinishedIndicator.INSTANCE);
-                }
-            } catch (Exception e) {
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onError(e);
-                }
-            }
-        }).subscribeOn(Schedulers.io()).subscribe(
-                finishedIndicator -> {
-                    finished.onNext(finishedIndicator);
-                    finished.onCompleted();
-                },
-                finished::onError
-        );
-
-        return finished.share().doOnUnsubscribe(asyncOp::unsubscribe).toSingle();
+        return executeAsync(() -> {
+            runnable.run();
+            return FinishedIndicator.INSTANCE;
+        });
     }
 
+    /**
+     * Starts immediately the execution of the given Callable with a thread from
+     * {@link Schedulers#io()}.
+     *
+     * The caller can await the execution termination through subscribing to the {@link Single} return value.
+     * It's safe to "share" the {@link Single} return value reference and subscribe to it as many times as you want.
+     * All subscribers get the result value (or the error) individually.
+     *
+     * Cancellation? The execution is automatically cancelled when all subscribers do unsubscribe while
+     * the execution is still running. The given {@link Callable} will be interrupted.
+     *
+     * If there is no subscriber ever to the {@link Single} return value, the callable will be executed unobserved.
+     * Make sure to have some kind of "exception handling" also for that case (like try-catch-logging blocks or
+     * {@link Thread.UncaughtExceptionHandler}) to not "miss" issues.
+     *
+     * @param callable the code to execute
+     * @param <T>      type of result
+     * @return Single instance delivering asynchronously the result of the callable
+     */
     // experimental
     public static <T> Single<T> executeAsync(Callable<T> callable) {
-        ReplaySubject<T> finished = ReplaySubject.create();
-
+        AsyncSubject<T> resultSubject = AsyncSubject.create();
         final Subscription asyncOp = Single.<T>create(singleSubscriber -> {
             try {
                 T result = callable.call();
@@ -67,46 +74,16 @@ public class AsyncUtils {
                 }
             }
         }).subscribeOn(Schedulers.io()).subscribe(
-                finishedIndicator -> {
-                    finished.onNext(finishedIndicator);
-                    finished.onCompleted();
+                t -> {
+                    resultSubject.onNext(t);
+                    resultSubject.onCompleted();
                 },
-                finished::onError
+                throwable -> {
+                    resultSubject.onError(throwable);
+                    resultSubject.onCompleted();
+                }
         );
-
-        return finished.share().doOnUnsubscribe(asyncOp::unsubscribe).toSingle();
-    }
-
-    // experimental
-    public static Single<FinishedIndicator> executeLazyAsync(Runnable runnable) {
-        return Single.<FinishedIndicator>create(singleSubscriber -> {
-            try {
-                runnable.run();
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onSuccess(FinishedIndicator.INSTANCE);
-                }
-            } catch (Exception e) {
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onError(e);
-                }
-            }
-        }).subscribeOn(Schedulers.io()).toObservable().share().toSingle();
-    }
-
-    // experimental
-    public static <T> Single<T> executeLazyAsync(Callable<T> callable) {
-        return Single.<T>create(singleSubscriber -> {
-            try {
-                T result = callable.call();
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onSuccess(result);
-                }
-            } catch (Exception e) {
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onError(e);
-                }
-            }
-        }).subscribeOn(Schedulers.io()).toObservable().share().toSingle();
+        return resultSubject.doOnUnsubscribe(asyncOp::unsubscribe).share().toSingle();
     }
 }
 
