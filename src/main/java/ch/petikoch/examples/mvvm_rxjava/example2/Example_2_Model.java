@@ -15,6 +15,8 @@
  */
 package ch.petikoch.examples.mvvm_rxjava.example2;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import ch.petikoch.examples.mvvm_rxjava.datatypes.NameFirstname;
 import ch.petikoch.examples.mvvm_rxjava.utils.SysOutUtils;
 import net.jcip.annotations.ThreadSafe;
@@ -22,7 +24,19 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 class Example_2_Model {
 
-    public void createAccount(NameFirstname nameFirstname) {
-        SysOutUtils.sysout("Model: " + nameFirstname.toString());
+	private final AtomicInteger failToken = new AtomicInteger(1);
+    
+	public void createAccount(NameFirstname nameFirstname) {
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+    	if ( failToken.incrementAndGet() % 3 == 0 )
+    		throw new RuntimeException( "oops" );
+    	else
+    		SysOutUtils.sysout("Model: " + nameFirstname.toString());
     }
 }
