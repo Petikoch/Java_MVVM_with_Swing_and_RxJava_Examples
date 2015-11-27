@@ -28,12 +28,13 @@ All of them try more or less
 
 When you develop a Java Swing GUI in practice, you face the following additional challenges
 
-* how to enforce the proper threading (view elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)
-* how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)
-* how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view
-* how to implement Undo/Redo, Validation, Exception-Handling, Timeouts, ...
-* how to enforce acyclic relationships between "stuff" to get good (isolated) testability
-* how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished
+* how to enforce the proper threading (view elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)?
+* how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)?
+* how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view?
+* how to implement Undo/Redo, Validation, Exception-Handling, Timeouts, ...?
+* how to enforce acyclic relationships between "stuff" to get good (isolated) testability?
+* how to deal with backpressure when e.g. the backend is to fast for the frontend and the GUI thread can't keep up?
+* how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished?
 * ...
 
 So, which GUI architecture should you choose? What are the benefits and drawbacks in general? And for your current project?
