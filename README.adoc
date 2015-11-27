@@ -30,10 +30,10 @@ When you develop a Java Swing GUI in practice, you face the following additional
 
 * how to enforce the proper threading (view elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)
 * how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)
-* how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished
 * how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view
 * how to implement Undo/Redo, Validation, Exception-Handling, Timeouts, ...
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability
+* how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished
 * ...
 
 So, which GUI architecture should you choose? What are the benefits and drawbacks in general? And for your current project?
@@ -47,12 +47,12 @@ One day, I had a deep lock at https://en.wikipedia.org/wiki/Model_View_ViewModel
 
 * using https://github.com/ReactiveX/RxJava[RxJava]'s http://reactivex.io/documentation/subject.html[Subject] objects as "listenable" value objects for the ViewModel
 * https://github.com/ReactiveX/RxSwing[RxSwing] to connect the View widgets (JButton, JTextField, ...) to the ViewModel-Subjects as "data binding"
-* https://github.com/ReactiveX/RxJava[RxJava] to react on changes of the ViewModel-Subjects and interact with the Model (backend)
+* https://github.com/ReactiveX/RxJava[RxJava] to react on changes of the ViewModel-Subjects and interact with the Model (backend) -> fluent API for "flows" (aka streams, pipeline)
 * use RxJava's http://reactivex.io/documentation/scheduler.html[Scheduler] and the RxSwing https://github.com/ReactiveX/RxSwing/blob/0.x/src/main/java/rx/schedulers/SwingScheduler.java[SwingScheduler] to do the threading
 
 image::Java_MVVM_RxJava_basic_idea.png[]
 
-I started with some small examples for different aspects. The solution was really nice IMO and I'd like to share it with you through this github repo.
+I started with some small examples for different aspects. The examples were really nice IMO and I'd like to share it with you through this github repo.
 
 == Implementing MVVM using RxJava and RxSwing
 
@@ -79,7 +79,7 @@ image::MVVM_dependencies.png[]
 
 * Threading
 ** All the action between View and ViewModel happens on the `SwingScheduler`
-** All the action between ViewModel and Model happens on `Schedulers.io()` (= cached thread pool)
+** All the action between ViewModel and Model happens "async" on `Schedulers.io()` (= cached thread pool)
 
 * View
 ** DataBinding
@@ -90,11 +90,11 @@ image::MVVM_dependencies.png[]
 * ViewModel
 ** Per View exits a ViewModel
 *** The ViewModel represents the structure of the View 1:1
-** We use http://reactivex.io/documentation/subject.html[Subject]'s as "fields" in the ViewModel
+** We use http://reactivex.io/documentation/subject.html[Rx Subject]'s as "fields" in the ViewModel
 *** Each subject "field" in the ViewModel corresponds to one widget in the View
 *** We use a little prefix for the "field" name like `v2vm_` or `vm2v_` to indicate the flow direction
 *** We use the `BehaviorSubject` class for Subject instances, which is a stateful Subject to have the "current" state, an initial state and easy testability
-** The ViewModel handles all the "complicated" interaction stuff between View and Model
+** The ViewModel handles all the "complicated" interaction stuff between View and Model (threading, exception handling, flows, ...)
 
 * Model
 ** The Model doesn't care about it's presentation and just offers an API
@@ -107,6 +107,9 @@ together with some additional fluent API code for "nice" DataBinding.
 == Examples
 
 The examples start simple and get more and more complicated, adding additional aspects and features.
+
+There is not a "full example" which shows all aspects at the moment, since this is just some code to figure out
+how to build MVVM using RxJava and RxSwing. Every example shows just one or more aspects.
 
 Scope: +
 The *current* examples are all "everything in one process" examples: View, ViewModel and Model run in one process in the same JVM. +
