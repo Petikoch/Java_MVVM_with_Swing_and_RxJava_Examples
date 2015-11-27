@@ -73,15 +73,19 @@ class AsyncUtilsTest extends Specification {
     }
 
     def 'executeAsync: propagates exceptions'() {
+        given:
+        def evilExceptionAtRuntime = new RuntimeException("Boom!")
+
         when:
         Single<FinishedIndicator> result = AsyncUtils.executeAsync {
-            throw new RuntimeException("Boom!")
+            throw evilExceptionAtRuntime
         }
         result.subscribe(testSubscriber)
         awaitUntil { !testSubscriber.getOnErrorEvents().isEmpty() }
 
         then:
-        testSubscriber.assertError(RuntimeException)
+        testSubscriber.getOnErrorEvents().size() == 1
+        testSubscriber.getOnErrorEvents().get(0).is(evilExceptionAtRuntime)
         testSubscriber.assertNoValues()
     }
 
