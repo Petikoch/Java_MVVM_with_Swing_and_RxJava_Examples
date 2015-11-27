@@ -214,6 +214,29 @@ Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example6[]
 
+=== Example 6a: Form submit with exceptions in model (backend) calls
+
+link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example6a[]
+
+* Same as Example 6
+* But like in real world, there are sometimes exceptions during e.g. model (backend) method invoking's
+* How to handle them?
+
+This is of course a challenging task: +
+How to combine results from asynchronous tasks? +
+How to handle exceptions in those?
+
+This is a typical problem, which solves RxJava easily: It offers all the necessary API's.
+See e.g. https://github.com/ReactiveX/RxJava/wiki/Error-Handling-Operators or of course the `onError` `Action1` in `rx.Observable#subscribe(..)`.
+
+In this example, there is some code to illustrate those.
+
+image::example6a.png[]
+
+Tests:
+
+link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example6a[]
+
 === Example 7: Log table with LogRow's pushed up from the Model
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example7[]
