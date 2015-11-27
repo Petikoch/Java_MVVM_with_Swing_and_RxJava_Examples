@@ -92,11 +92,11 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
                     finishedIndicator -> vm2v_resultat2.onNext("Email sent to " + nameFirstname.getName() + " " + nameFirstname.getFirstname()));
             v2vm_cancelButtonEvents.first().takeUntil(sendEmailResult.toObservable()).subscribe(actionEvent -> vm2v_resultat2.onNext("Aborted"));
 
-            final Single<FinishedIndicator> bothFinished =
-                    Single.zip(createAccountResult,
-                            sendEmailResult,
-                            (finishedIndicator, finishedIndicator2) -> FinishedIndicator.INSTANCE
-                    );
+            final Single<FinishedIndicator> bothFinished = Single.zip(
+                    createAccountResult,
+                    sendEmailResult,
+                    (finishedIndicator, finishedIndicator2) -> FinishedIndicator.INSTANCE
+            );
             Single.merge(bothFinished, v2vm_cancelButtonEvents.first().toSingle())
                     .toBlocking()
                     .first();
