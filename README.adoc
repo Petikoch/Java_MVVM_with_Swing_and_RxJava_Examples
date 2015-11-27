@@ -33,7 +33,7 @@ When you develop a Java Swing GUI in practice, you face the following additional
 * how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view?
 * how to implement Undo/Redo, Validation, Exception-Handling, Timeouts, ...?
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability?
-* how to deal with backpressure when e.g. the backend is to fast for the frontend and the GUI thread can't keep up?
+* how to deal with backpressure when e.g. the backend is too fast for the frontend and the GUI thread can't keep up?
 * how to connect an ActionListener on e.g. a "Cancel" button with a just started SwingWorker and disconnect it after the SwingWorker finished?
 * ...
 
