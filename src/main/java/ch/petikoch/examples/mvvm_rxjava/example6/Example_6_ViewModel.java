@@ -89,7 +89,10 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
                     .subscribe(
                             finishedIndicator -> vm2v_resultat1.onNext("Acount created for " + nameFirstname.getName() + " " + nameFirstname.getFirstname())
                     );
-            v2vm_cancelButtonEvents.first().takeUntil(createAccountResult.toObservable()).subscribe(actionEvent -> vm2v_resultat1.onNext("Aborted"));
+            v2vm_cancelButtonEvents
+                    .first()
+                    .takeUntil(createAccountResult.toObservable())
+                    .subscribe(actionEvent -> vm2v_resultat1.onNext("Aborted"));
 
             final Single<FinishedIndicator> sendEmailResult = model.sendEmail(nameFirstname);
             sendEmailResult.toObservable()
@@ -98,7 +101,10 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
                     .subscribe(
                             finishedIndicator -> vm2v_resultat2.onNext("Email sent to " + nameFirstname.getName() + " " + nameFirstname.getFirstname())
                     );
-            v2vm_cancelButtonEvents.first().takeUntil(sendEmailResult.toObservable()).subscribe(actionEvent -> vm2v_resultat2.onNext("Aborted"));
+            v2vm_cancelButtonEvents
+                    .first()
+                    .takeUntil(sendEmailResult.toObservable())
+                    .subscribe(actionEvent -> vm2v_resultat2.onNext("Aborted"));
 
             final Single<FinishedIndicator> bothFinished = Single.zip(
                     createAccountResult,
