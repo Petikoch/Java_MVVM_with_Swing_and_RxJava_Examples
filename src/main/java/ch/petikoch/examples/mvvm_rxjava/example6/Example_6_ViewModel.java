@@ -44,8 +44,8 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
     public final PublishSubject<ActionEvent> v2vm_cancelButtonEvents = PublishSubject.create();
     public final BehaviorSubject<Boolean> vm2v_cancelButtonEnabled = BehaviorSubject.create(false /* initial state */);
 
-    public final BehaviorSubject<String> vm2v_resultat1 = BehaviorSubject.create();
-    public final BehaviorSubject<String> vm2v_resultat2 = BehaviorSubject.create();
+    public final BehaviorSubject<String> vm2v_result1 = BehaviorSubject.create();
+    public final BehaviorSubject<String> vm2v_result2 = BehaviorSubject.create();
 
     public final BehaviorSubject<NameFirstname> vm2m_nameFirstname = BehaviorSubject.create();
 
@@ -70,8 +70,8 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
                 .subscribe(vm2v_submitButtonEnabled);
 
         Observable.merge(v2vm_name, v2vm_firstname).subscribe(s -> {
-            vm2v_resultat1.onNext("Ready");
-            vm2v_resultat2.onNext("Also ready");
+            vm2v_result1.onNext("Ready");
+            vm2v_result2.onNext("Also ready");
         });
     }
 
@@ -79,32 +79,32 @@ class Example_6_ViewModel implements IViewModel<Example_6_Model> {
     public void connectTo(final Example_6_Model model) {
         onEventFrom(vm2m_nameFirstname).executeAsync(nameFirstname -> {
 
-            vm2v_resultat1.onNext("Creating acount...");
-            vm2v_resultat2.onNext("Sending email...");
+            vm2v_result1.onNext("Creating acount...");
+            vm2v_result2.onNext("Sending email...");
 
             final Single<FinishedIndicator> createAccountResult = model.createAcount(nameFirstname);
             createAccountResult.toObservable()
                     .first()
                     .takeUntil(v2vm_cancelButtonEvents)
                     .subscribe(
-                            finishedIndicator -> vm2v_resultat1.onNext("Acount created for " + nameFirstname.getName() + " " + nameFirstname.getFirstname())
+                            finishedIndicator -> vm2v_result1.onNext("Acount created for " + nameFirstname.getName() + " " + nameFirstname.getFirstname())
                     );
             v2vm_cancelButtonEvents
                     .first()
                     .takeUntil(createAccountResult.toObservable())
-                    .subscribe(actionEvent -> vm2v_resultat1.onNext("Aborted"));
+                    .subscribe(actionEvent -> vm2v_result1.onNext("Aborted"));
 
             final Single<FinishedIndicator> sendEmailResult = model.sendEmail(nameFirstname);
             sendEmailResult.toObservable()
                     .first()
                     .takeUntil(v2vm_cancelButtonEvents)
                     .subscribe(
-                            finishedIndicator -> vm2v_resultat2.onNext("Email sent to " + nameFirstname.getName() + " " + nameFirstname.getFirstname())
+                            finishedIndicator -> vm2v_result2.onNext("Email sent to " + nameFirstname.getName() + " " + nameFirstname.getFirstname())
                     );
             v2vm_cancelButtonEvents
                     .first()
                     .takeUntil(sendEmailResult.toObservable())
-                    .subscribe(actionEvent -> vm2v_resultat2.onNext("Aborted"));
+                    .subscribe(actionEvent -> vm2v_result2.onNext("Aborted"));
 
             final Single<FinishedIndicator> bothFinished = Single.zip(
                     createAccountResult,

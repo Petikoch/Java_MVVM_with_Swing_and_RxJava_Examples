@@ -51,8 +51,8 @@ class Example_6_View extends StrictThreadingJFrame implements IView<Example_6_Vi
         bindSwingView(cancelButton).toViewModel(viewModel.v2vm_cancelButtonEvents);
         bindViewModelBoolean(viewModel.vm2v_cancelButtonEnabled).toSwingViewEnabledPropertyOf(cancelButton);
 
-        bindViewModelString(viewModel.vm2v_resultat1).toSwingViewLabel(resultat1Label);
-        bindViewModelString(viewModel.vm2v_resultat2).toSwingViewLabel(resultat2Label);
+        bindViewModelString(viewModel.vm2v_result1).toSwingViewLabel(resultat1Label);
+        bindViewModelString(viewModel.vm2v_result2).toSwingViewLabel(resultat2Label);
     }
 
     public Example_6_View() {
