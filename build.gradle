@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'groovy'
 
-version = '1.2'
+version = '1.3-SNASHOT'
 
 def fileEncoding = 'UTF-8'
 

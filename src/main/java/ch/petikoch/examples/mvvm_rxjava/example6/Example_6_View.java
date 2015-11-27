@@ -122,7 +122,7 @@ class Example_6_View extends StrictThreadingJFrame implements IView<Example_6_Vi
 
         getRootPane().setDefaultButton(submitButton);
 
-        resultat1Label = new StrictThreadingJLabel("Parat");
+        resultat1Label = new StrictThreadingJLabel("Ready");
         resultat1Label.setFont(new Font("Tahoma", Font.BOLD, 11));
         GridBagConstraints gbc_resultat1Label = new GridBagConstraints();
         gbc_resultat1Label.anchor = GridBagConstraints.WEST;
@@ -133,7 +133,7 @@ class Example_6_View extends StrictThreadingJFrame implements IView<Example_6_Vi
         gbc_resultat1Label.gridy = 4;
         getContentPane().add(resultat1Label, gbc_resultat1Label);
 
-        resultat2Label = new StrictThreadingJLabel("Auch parat");
+        resultat2Label = new StrictThreadingJLabel("Ready, too");
         resultat2Label.setFont(new Font("Tahoma", Font.BOLD, 11));
         GridBagConstraints gbc_resultat2Label = new GridBagConstraints();
         gbc_resultat2Label.fill = GridBagConstraints.BOTH;
