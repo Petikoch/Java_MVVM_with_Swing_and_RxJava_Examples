@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.ben-manes.versions" version "0.11.3"
+    id "com.github.ben-manes.versions" version "0.12.0"
     id "com.github.hierynomus.license" version "0.11.0"
 }
 
@@ -18,8 +18,8 @@ repositories {
     jcenter()
 }
 
-def googleGuavaVersion = '18.0'
-def rxJavaVersion = '1.0.16'
+def googleGuavaVersion = '19.0'
+def rxJavaVersion = '1.1.0'
 def rxSwingVersion = '0.25.0'
 def jcipVersion = '1.0'
 def jsr305Version = '3.0.1'
