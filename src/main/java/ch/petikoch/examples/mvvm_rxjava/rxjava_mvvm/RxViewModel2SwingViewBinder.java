@@ -22,6 +22,8 @@ import rx.schedulers.SwingScheduler;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
+import static ch.petikoch.examples.mvvm_rxjava.utils.PreserveFullStackTraceOperator.preserveFullStackTrace;
+
 public class RxViewModel2SwingViewBinder {
 
     public static BooleanBindOfAble bindViewModelBoolean(Observable<Boolean> source) {
@@ -47,6 +49,7 @@ public class RxViewModel2SwingViewBinder {
         public void toSwingViewEnabledPropertyOf(JComponent target) {
             source.onBackpressureLatest()
                     .observeOn(SwingScheduler.getInstance())
+                    .lift(preserveFullStackTrace())
                     .subscribe(target::setEnabled);
         }
     }
@@ -62,12 +65,14 @@ public class RxViewModel2SwingViewBinder {
         public void toSwingViewText(JTextComponent target) {
             source.onBackpressureLatest()
                     .observeOn(SwingScheduler.getInstance())
+                    .lift(preserveFullStackTrace())
                     .subscribe(target::setText);
         }
 
         public void toSwingViewLabel(JLabel target) {
             source.onBackpressureLatest()
                     .observeOn(SwingScheduler.getInstance())
+                    .lift(preserveFullStackTrace())
                     .subscribe(target::setText);
         }
     }
@@ -82,6 +87,7 @@ public class RxViewModel2SwingViewBinder {
 
         public void toAction(Action1<T> action) {
             source.observeOn(SwingScheduler.getInstance())
+                    .lift(preserveFullStackTrace())
                     .subscribe(action);
         }
     }

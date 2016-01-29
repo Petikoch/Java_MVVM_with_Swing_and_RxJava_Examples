@@ -24,6 +24,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.lang.management.ManagementFactory;
 
+import static ch.petikoch.examples.mvvm_rxjava.utils.PreserveFullStackTraceOperator.preserveFullStackTrace;
+
 class Example_9_View extends StrictThreadingJFrame implements IView<Example_9_ViewModel> {
 
     private final Example_9_View_StatusPanel statusPanel = new Example_9_View_StatusPanel();
@@ -33,32 +35,35 @@ class Example_9_View extends StrictThreadingJFrame implements IView<Example_9_Vi
     @Override
     public void bind(final Example_9_ViewModel viewModel) {
         statusPanel.bind(viewModel.vm2v_status);
-        viewModel.vm2v_mainPanel.observeOn(SwingScheduler.getInstance()).subscribe(mainContentViewModel -> {
-            if (mainContentViewModel instanceof Example_9_ViewModel_Step1) {
-                Example_9_View_Step1Panel step1Panel = new Example_9_View_Step1Panel();
-                step1Panel.bind((Example_9_ViewModel_Step1) mainContentViewModel);
+        viewModel.vm2v_mainPanel
+                .observeOn(SwingScheduler.getInstance())
+                .lift(preserveFullStackTrace())
+                .subscribe(mainContentViewModel -> {
+                    if (mainContentViewModel instanceof Example_9_ViewModel_Step1) {
+                        Example_9_View_Step1Panel step1Panel = new Example_9_View_Step1Panel();
+                        step1Panel.bind((Example_9_ViewModel_Step1) mainContentViewModel);
 
-                mainPanel.removeAll();
-                mainPanel.add(step1Panel, BorderLayout.CENTER);
-                mainPanel.revalidate();
-            } else if (mainContentViewModel instanceof Example_9_ViewModel_Step2) {
-                Example_9_View_Step2Panel step2Panel = new Example_9_View_Step2Panel();
-                step2Panel.bind((Example_9_ViewModel_Step2) mainContentViewModel);
+                        mainPanel.removeAll();
+                        mainPanel.add(step1Panel, BorderLayout.CENTER);
+                        mainPanel.revalidate();
+                    } else if (mainContentViewModel instanceof Example_9_ViewModel_Step2) {
+                        Example_9_View_Step2Panel step2Panel = new Example_9_View_Step2Panel();
+                        step2Panel.bind((Example_9_ViewModel_Step2) mainContentViewModel);
 
-                mainPanel.removeAll();
-                mainPanel.add(step2Panel, BorderLayout.CENTER);
-                mainPanel.revalidate();
-            } else if (mainContentViewModel instanceof Example_9_ViewModel_Step3) {
-                Example__View_Step3Panel step3Panel = new Example__View_Step3Panel();
-                step3Panel.bind((Example_9_ViewModel_Step3) mainContentViewModel);
+                        mainPanel.removeAll();
+                        mainPanel.add(step2Panel, BorderLayout.CENTER);
+                        mainPanel.revalidate();
+                    } else if (mainContentViewModel instanceof Example_9_ViewModel_Step3) {
+                        Example__View_Step3Panel step3Panel = new Example__View_Step3Panel();
+                        step3Panel.bind((Example_9_ViewModel_Step3) mainContentViewModel);
 
-                mainPanel.removeAll();
-                mainPanel.add(step3Panel, BorderLayout.CENTER);
-                mainPanel.revalidate();
-            } else {
-                throw new IllegalStateException("Unhandled: " + mainContentViewModel);
-            }
-        });
+                        mainPanel.removeAll();
+                        mainPanel.add(step3Panel, BorderLayout.CENTER);
+                        mainPanel.revalidate();
+                    } else {
+                        throw new IllegalStateException("Unhandled: " + mainContentViewModel);
+                    }
+                });
     }
 
     public Example_9_View() {
