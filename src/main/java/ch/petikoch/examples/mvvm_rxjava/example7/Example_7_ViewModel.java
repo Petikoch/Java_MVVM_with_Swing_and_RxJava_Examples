@@ -33,6 +33,7 @@ class Example_7_ViewModel implements IViewModel<Example_7_Model> {
         // NO-OP
     }
 
+    @Override
     public void connectTo(final Example_7_Model model) {
         model.getLogs().subscribe(vm2v_log);
     }
