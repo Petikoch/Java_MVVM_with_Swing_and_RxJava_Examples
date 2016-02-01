@@ -32,6 +32,7 @@ class Example_1_ViewModel implements IViewModel<Example_1_Model> {
         // NO-OP
     }
 
+    @Override
     public void connectTo(final Example_1_Model model) {
         model.infos().subscribe(vm2v_info);
     }
