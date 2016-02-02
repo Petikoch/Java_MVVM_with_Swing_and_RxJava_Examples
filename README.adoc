@@ -22,15 +22,15 @@ All of them try more or less
 * to decouple the "different things" (widgets, forms, business logic, ...) from each other
 * make the "different things" easily testable (unit-testable)
 * try to separate presentation from behaviour
-* make the view easily "exchangeable" (e.g. replace Swing with JavaFX)
-* concentrate the business logic into e.g. the "model", which "lives longer" (in years) than the often changing GUI technologies
+* make the View easily "exchangeable" (e.g. replace Swing with JavaFX)
+* concentrate the business logic into e.g. the "Model", which "lives longer" (in years) than the often changing GUI technologies
 * ...
 
 When you develop a Java Swing GUI in practice, you face the following additional challenges
 
-* how to enforce the proper threading (view elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)?
-* how to keep the view "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)?
-* how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the view?
+* how to enforce the proper threading (View elements like JPanel, JButton, ... should be only accessed by AWT-EventDispatchThread)?
+* how to keep the View "responsive" by kicking off background actions (-> SwingWorker, new Thread(...), ExecutorService, ...)?
+* how to combine the results from multiple asynchronous actions (multiple SwingWorker's, Thread's, Future's, ...) into one result for the View?
 * how to implement Undo/Redo, Validation, Exception-Handling, Timeouts, ...?
 * how to enforce acyclic relationships between "stuff" to get good (isolated) testability?
 * how to deal with backpressure when e.g. the backend is too fast for the frontend and the GUI thread can't keep up?
@@ -72,7 +72,7 @@ image::MVVM_dependencies.png[]
 
 * The View "sees" the ViewModel
 * The View "doesn't see" the Model
-* The ViewModel "sees" the model
+* The ViewModel "sees" the Model
 * The Model "doesn't see" the ViewModel and "doesn't see" the View
 * We have acyclic dependencies
 
@@ -181,7 +181,7 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example5[]
 
 * Same as Example 4
 * You can cancel the submit processing
-* The model has a classic "blocking" API
+* The Model has a classic "blocking" API
 
 image::example5.png[]
 
@@ -194,7 +194,7 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example5[]
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example5a[]
 
 * Same as Example 5
-* The model has a "non-blocking" API, the ViewModel gets simpler
+* The Model has a "non-blocking" API, the ViewModel gets simpler
 
 Tests:
 
@@ -205,7 +205,7 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example5a[]
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example6[]
 
 * Same as Example 5a
-* But with two model API calls running in two different threads
+* But with two Model API calls running in two different threads
 * Waiting for both of them
 * Cancellation for both of them
 
@@ -215,12 +215,12 @@ Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example6[]
 
-=== Example 6a: Form submit with exceptions in model (backend) calls
+=== Example 6a: Form submit with exceptions in Model (backend) calls
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example6a[]
 
 * Same as Example 6
-* But like in real world, there are sometimes exceptions during e.g. model (backend) method calls
+* But like in real world, there are sometimes exceptions during e.g. Model (backend) method calls
 * How to handle them?
 
 This is of course a challenging task: +
@@ -240,8 +240,8 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example6a[]
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example7[]
 
-* The model publishes `LogRow` s (using a computational thread)
-* These are added in the view as rows of a `JTable` (using GUI thread)
+* The Model publishes `LogRow` s (using a computational thread)
+* These are added in the View as rows of a `JTable` (using GUI thread)
 
 image::example7.png[]
 
@@ -255,8 +255,8 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example7[]
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example7a[]
 
 * Same as example 7
-* But: The model's log Observable sometimes fail
-* We add some exception handling into the viewmodel, to keey the view alive
+* But: The Model's log Observable sometimes fail
+* We add some exception handling into the ViewModel, to keep the View alive
 
 image::example7a.png[]
 
@@ -269,8 +269,8 @@ link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example7a[]
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example8[]
 
-* The model uses a threadpool to create plenty of `LogRow` s (using as many threads as there are CPU cores)
-* Since the view runs on a single thread, it can't keep up with the pace
+* The Model uses a threadpool to create plenty of `LogRow` s (using as many threads as there are CPU cores)
+* Since the View runs on a single thread, it can't keep up with the pace
 ** "Fast producer, slow consumer" kind of problem
 * We need to think about backpressure
 ** We could slow down the `LogRow` production (blocking backpressure)
@@ -290,7 +290,7 @@ link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example9[]
 * So far the views were very static
 * Now we have structural changes at runtime, think of a wizard with it's steps
 * Parts of the views remain static (header, footer)
-* Therefore we need some kind of view composition
+* Therefore we need some kind of View composition
 
 image::example9.png[]
 
