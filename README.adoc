@@ -249,6 +249,22 @@ Tests:
 
 link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example7[]
 
+
+=== Example 7a: Log table with LogRow's pushed up from the Model and exception handling
+
+link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example7a[]
+
+* Same as example 7
+* But: The model's log Observable sometimes fail
+* We add some exception handling into the viewmodel, to keey the view alive
+
+image::example7a.png[]
+
+Tests:
+
+link:./src/test/groovy/ch/petikoch/examples/mvvm_rxjava/example7a[]
+
+
 === Example 8: Log table with LogRow's pushed up from the Model and dealing with backpressure
 
 link:./src/main/java/ch/petikoch/examples/mvvm_rxjava/example8[]
