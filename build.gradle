@@ -25,7 +25,7 @@ def jcipVersion = '1.0'
 def jsr305Version = '3.0.1'
 def commonsLang3Version = '3.4'
 
-def groovyVersion = '2.4.5'
+def groovyVersion = '2.4.6'
 def spockVersion = '1.0-groovy-2.4'
 def cglibVersion = '3.2.0'
 def awaitilityVersion = '1.7.0'
