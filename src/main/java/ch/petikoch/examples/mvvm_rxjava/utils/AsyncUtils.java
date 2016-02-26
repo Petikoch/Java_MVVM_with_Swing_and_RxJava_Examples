@@ -16,12 +16,15 @@
 package ch.petikoch.examples.mvvm_rxjava.utils;
 
 import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.FinishedIndicator;
+import rx.Observable;
 import rx.Single;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subjects.AsyncSubject;
 
 import java.util.concurrent.Callable;
+
+import static ch.petikoch.examples.mvvm_rxjava.utils.PreserveFullStackTraceOperator.preserveFullStackTrace;
 
 /**
  * Something like <a href="https://github.com/ReactiveX/RxJavaAsyncUtil/blob/0.x/src/main/java/rx/util/async/Async.java">RxJavaAsyncUtil</a>
@@ -62,28 +65,35 @@ public class AsyncUtils {
     // experimental
     public static <T> Single<T> executeAsync(Callable<T> callable) {
         AsyncSubject<T> resultSubject = AsyncSubject.create();
-        final Subscription asyncOp = Single.<T>create(singleSubscriber -> {
+
+        final Subscription asyncOp = Observable.<T>create(singleSubscriber -> {
             try {
                 T result = callable.call();
                 if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onSuccess(result);
+                    singleSubscriber.onNext(result);
                 }
             } catch (Exception e) {
                 if (!singleSubscriber.isUnsubscribed()) {
                     singleSubscriber.onError(e);
                 }
             }
-        }).subscribeOn(Schedulers.io()).subscribe(
-                t -> {
-                    resultSubject.onNext(t);
-                    resultSubject.onCompleted();
-                },
-                throwable -> {
-                    resultSubject.onError(throwable);
-                    resultSubject.onCompleted();
-                }
-        );
-        return resultSubject.doOnUnsubscribe(asyncOp::unsubscribe).share().toSingle();
+        }).subscribeOn(Schedulers.io())
+                .first()
+                .lift(preserveFullStackTrace())
+                .subscribe(
+                        t -> {
+                            resultSubject.onNext(t);
+                            resultSubject.onCompleted();
+                        },
+                        throwable -> {
+                            resultSubject.onError(throwable);
+                            resultSubject.onCompleted();
+                        }
+                );
+
+        return resultSubject.doOnUnsubscribe(asyncOp::unsubscribe)
+                .share()
+                .toSingle();
     }
 }
 

@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 
-import static ch.petikoch.examples.mvvm_rxjava.AwaitUtils.awaitUntil
+import static com.jayway.awaitility.Awaitility.await
 
 @Timeout(value = 10, unit = TimeUnit.SECONDS)
 class AsyncUtilsTest extends Specification {
@@ -38,7 +38,6 @@ class AsyncUtilsTest extends Specification {
     def 'executeAsync: is executed in any case, even nobody every subscribes'() {
         setup:
         AtomicBoolean wasExecuted = new AtomicBoolean(false)
-        assert testingClock.getTime() == 0
 
         when:
         AsyncUtils.executeAsync {
@@ -54,18 +53,13 @@ class AsyncUtilsTest extends Specification {
     def 'executeAsync: returns result when finished'() {
         setup:
         def expectedResult = UUID.randomUUID().toString()
-        assert testingClock.getTime() == 0
 
         when:
         Single<String> result = AsyncUtils.executeAsync({
-            try {
-                return expectedResult
-            } finally {
-                testingClock.advanceTime()
-            }
+            return expectedResult
         } as Callable<String>)
-        testingClock.awaitTime(1)
         result.subscribe(testSubscriber)
+        await().until({ !testSubscriber.getOnNextEvents().isEmpty() } as Callable<Boolean>)
 
         then:
         testSubscriber.assertValue(expectedResult)
@@ -73,25 +67,38 @@ class AsyncUtilsTest extends Specification {
     }
 
     def 'executeAsync: propagates exceptions'() {
-        given:
-        def evilExceptionAtRuntime = new RuntimeException("Boom!")
-
         when:
         Single<FinishedIndicator> result = AsyncUtils.executeAsync {
-            throw evilExceptionAtRuntime
+            throw new RuntimeException('Boom!')
         }
         result.subscribe(testSubscriber)
-        awaitUntil { !testSubscriber.getOnErrorEvents().isEmpty() }
+        await().until({ !testSubscriber.getOnErrorEvents().isEmpty() } as Callable<Boolean>)
 
         then:
+        testSubscriber.assertError(RuntimeException)
         testSubscriber.getOnErrorEvents().size() == 1
-        testSubscriber.getOnErrorEvents().get(0).is(evilExceptionAtRuntime)
+        testSubscriber.getOnErrorEvents().getAt(0).getMessage() == 'Boom!'
         testSubscriber.assertNoValues()
     }
 
-    def 'executeAsync: value of Single-Result is published to all interested subscribers at any time after completion'() {
+    def 'executeAsync: propagated exceptions has cause to async origin'() {
+        when:
+        Single<FinishedIndicator> result = AsyncUtils.executeAsync {
+            throw new RuntimeException("Boom!")
+        }
+        result.subscribe(testSubscriber)
+        await().until({ !testSubscriber.getOnErrorEvents().isEmpty() } as Callable<Boolean>)
+
+        then:
+        testSubscriber.assertError(RuntimeException)
+        testSubscriber.getOnErrorEvents().size() == 1
+        testSubscriber.getOnErrorEvents().getAt(0).getStackTrace().any { it.className == this.class.name } == true
+        testSubscriber.getOnErrorEvents().getAt(0).getCause() == null
+        testSubscriber.assertNoValues()
+    }
+
+    def 'executeAsync: value of Single-Result is published to all interested at any time after completion '() {
         setup:
-        assert testingClock.getTime() == 0
         def expectedResult = UUID.randomUUID().toString()
         Single<String> singleResult = AsyncUtils.executeAsync({
             return expectedResult
@@ -122,11 +129,10 @@ class AsyncUtilsTest extends Specification {
 
     def 'executeAsync: provided code is cancelled as soon as all subscribers did unsubscribe'() {
         setup:
-        assert testingClock.getTime() == 0
         def testSubscriber2 = new TestSubscriber()
         def testSubscriber3 = new TestSubscriber()
         def AtomicReference<Exception> exceptionHolder = new AtomicReference<>()
-        Single<String> result = AsyncUtils.executeAsync {
+        Single<FinishedIndicator> result = AsyncUtils.executeAsync {
             testingClock.advanceTime()
             try {
                 TimeUnit.DAYS.sleep(Long.MAX_VALUE)
@@ -155,9 +161,9 @@ class AsyncUtilsTest extends Specification {
 
         when:
         testSubscriber3.unsubscribe()
-        awaitUntil { exceptionHolder.get() != null }
+        await().until({ exceptionHolder.get() != null } as Callable<Boolean>)
 
         then:
-        exceptionHolder.get() != null
+        noExceptionThrown()
     }
 }
