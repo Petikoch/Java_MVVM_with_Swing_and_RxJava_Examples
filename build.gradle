@@ -27,7 +27,7 @@ def commonsLang3Version = '3.4'
 
 def groovyVersion = '2.4.6'
 def spockVersion = '1.0-groovy-2.4'
-def cglibVersion = '3.2.0'
+def cglibVersion = '3.2.1'
 def awaitilityVersion = '1.7.0'
 def swingXVersion = '1.6.5-1'
 
