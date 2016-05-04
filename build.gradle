@@ -90,8 +90,3 @@ license {
     strictCheck = true
 }
 
-task execute(type:JavaExec) {
-   main = "ch.petikoch.examples.mvvm_rxjava.example" + exampleNum + ".Example_" + exampleNum + "_Main"
-   classpath = sourceSets.main.runtimeClasspath
-}
-
