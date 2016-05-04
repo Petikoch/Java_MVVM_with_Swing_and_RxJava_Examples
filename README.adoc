@@ -112,9 +112,17 @@ The examples start simple and get more and more complicated, adding additional a
 There is not a "full example" which shows all aspects at the moment, since this is just some code to figure out
 how to build MVVM using RxJava and RxSwing. Every example shows just one or more aspects.
 
-Running the examples: +
+*Running the examples:* +
 
-`./gradlew run -Pexample=<example>, e.g.: ./gradlew run -Pexample=7a`
+Run the main class of each example in your favourite IDE
+
+_or_
+
+Use the gradle-wrapper on your favourite console
+
+`./gradlew run -Pexample=<example>` +
+e.g.: +
+`./gradlew run -Pexample=7a`
 
 Scope: +
 The *current* examples are all "everything in one process" examples: View, ViewModel and Model run in one process in the same JVM. +
