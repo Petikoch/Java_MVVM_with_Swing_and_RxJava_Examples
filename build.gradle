@@ -91,8 +91,8 @@ license {
     strictCheck = true
 }
 
-// Set the default example number to 1 unless the user overrides, e.g. ./gradlew run -PexampleNum=7a
-ext.exampleNum = project.hasProperty("exampleNum") ? project.getProperty("exampleNum") : '1'
+// Set the default example number to 1 unless the user overrides, e.g. ./gradlew run -Pexample=7a
+ext.example = project.hasProperty("example") ? project.getProperty("example") : '1'
 run {
-    mainClassName = "ch.petikoch.examples.mvvm_rxjava.example${exampleNum}.Example_${exampleNum}_Main"
+    mainClassName = "ch.petikoch.examples.mvvm_rxjava.example${example}.Example_${example}_Main"
 }
