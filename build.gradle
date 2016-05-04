@@ -3,6 +3,7 @@ plugins {
     id "com.github.hierynomus.license" version "0.11.0"
 }
 
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'groovy'
@@ -90,3 +91,8 @@ license {
     strictCheck = true
 }
 
+// Set the default example number to 1 unless the user overrides, e.g. ./gradlew run -PexampleNum=7a
+ext.exampleNum = project.hasProperty("exampleNum") ? project.getProperty("exampleNum") : '1'
+run {
+    mainClassName = "ch.petikoch.examples.mvvm_rxjava.example${exampleNum}.Example_${exampleNum}_Main"
+}
