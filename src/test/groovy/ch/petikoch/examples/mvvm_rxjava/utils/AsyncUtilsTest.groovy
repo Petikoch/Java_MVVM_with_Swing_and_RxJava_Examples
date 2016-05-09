@@ -18,6 +18,7 @@ package ch.petikoch.examples.mvvm_rxjava.utils
 import ch.petikoch.examples.mvvm_rxjava.TestingClock
 import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.FinishedIndicator
 import rx.Single
+import rx.Subscriber
 import rx.observers.TestSubscriber
 import spock.lang.Specification
 import spock.lang.Timeout
@@ -141,9 +142,9 @@ class AsyncUtilsTest extends Specification {
             }
         }
         testingClock.awaitTime(1)
-        result.subscribe(testSubscriber)
-        result.subscribe(testSubscriber2)
-        result.subscribe(testSubscriber3)
+        result.subscribe(testSubscriber as Subscriber)
+        result.subscribe(testSubscriber2 as Subscriber)
+        result.subscribe(testSubscriber3 as Subscriber)
 
         when:
         testSubscriber.unsubscribe()

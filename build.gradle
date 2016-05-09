@@ -20,7 +20,7 @@ repositories {
 }
 
 def googleGuavaVersion = '19.0'
-def rxJavaVersion = '1.1.1'
+def rxJavaVersion = '1.1.5'
 def rxSwingVersion = '0.25.0'
 def jcipVersion = '1.0'
 def jsr305Version = '3.0.1'
