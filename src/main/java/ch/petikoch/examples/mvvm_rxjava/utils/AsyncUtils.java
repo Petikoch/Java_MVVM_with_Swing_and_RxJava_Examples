@@ -66,20 +66,9 @@ public class AsyncUtils {
     public static <T> Single<T> executeAsync(Callable<T> callable) {
         AsyncSubject<T> resultSubject = AsyncSubject.create();
 
-        final Subscription asyncOp = Observable.<T>create(singleSubscriber -> {
-            try {
-                T result = callable.call();
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onNext(result);
-                }
-            } catch (Exception e) {
-                if (!singleSubscriber.isUnsubscribed()) {
-                    singleSubscriber.onError(e);
-                }
-            }
-        }).subscribeOn(Schedulers.io())
-                .first()
-                .lift(preserveFullStackTrace())
+	    final Subscription asyncOp = Observable.fromCallable(callable)
+			    .subscribeOn(Schedulers.io())
+			    .lift(preserveFullStackTrace())
                 .subscribe(
                         t -> {
                             resultSubject.onNext(t);
