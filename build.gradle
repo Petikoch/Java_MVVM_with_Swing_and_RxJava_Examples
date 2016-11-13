@@ -19,16 +19,16 @@ repositories {
     jcenter()
 }
 
-def googleGuavaVersion = '19.0'
-def rxJavaVersion = '1.1.5'
-def rxSwingVersion = '0.25.0'
+def googleGuavaVersion = '20.0'
+def rxJavaVersion = '1.2.2'
+def rxSwingVersion = '0.27.0'
 def jcipVersion = '1.0'
 def jsr305Version = '3.0.1'
-def commonsLang3Version = '3.4'
+def commonsLang3Version = '3.5'
 
-def groovyVersion = '2.4.6'
+def groovyVersion = '2.4.7'
 def spockVersion = '1.0-groovy-2.4'
-def cglibVersion = '3.2.2'
+def cglibVersion = '3.2.4'
 def awaitilityVersion = '1.7.0'
 def swingXVersion = '1.6.5-1'
 
