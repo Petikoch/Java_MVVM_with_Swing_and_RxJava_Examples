@@ -30,7 +30,7 @@ import static ch.petikoch.examples.mvvm_rxjava.utils.PreserveFullStackTraceOpera
  * Something like <a href="https://github.com/ReactiveX/RxJavaAsyncUtil/blob/0.x/src/main/java/rx/util/async/Async.java">RxJavaAsyncUtil</a>
  * but with {@link Single} as return types.
  */
-@Deprecated // This is kind of "imperative" and not lazy like Rx
+@Deprecated // This is kind of "imperative" and not lazy like typical Rx
 public class AsyncUtils {
 
     /**
