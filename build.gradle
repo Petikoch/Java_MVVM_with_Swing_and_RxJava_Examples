@@ -5,7 +5,6 @@ plugins {
 
 apply plugin: 'application'
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'groovy'
 
 version = '1.6-SNAPSHOT'
@@ -71,15 +70,6 @@ jar {
                 'Built-Gradle': gradle.gradleVersion
     }
 }
-
-// work around unnecessary timestamp in generated file which always causes dirty files in version control
-// https://issues.gradle.org/browse/GRADLE-2293
-task adjustEclipseSettingsFile << {
-    ant.replaceregexp(match: '^#.*', replace: '', flags: 'g', byline: true) {
-        fileset(dir: project.projectDir, includes: '.settings/org.eclipse.jdt.core.prefs')
-    }
-}
-eclipseJdt.finalizedBy adjustEclipseSettingsFile
 
 // http://forums.gradle.org/gradle/topics/set_maxparallelforks_to_number_of_cores_on_the_current_machine
 tasks.withType(Test) {
