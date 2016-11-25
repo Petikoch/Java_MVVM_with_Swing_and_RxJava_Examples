@@ -17,16 +17,16 @@ package ch.petikoch.examples.mvvm_rxjava.example5a;
 
 import ch.petikoch.examples.mvvm_rxjava.datatypes.NameFirstname;
 import ch.petikoch.examples.mvvm_rxjava.rxjava_mvvm.FinishedIndicator;
-import ch.petikoch.examples.mvvm_rxjava.utils.AsyncUtils;
 import ch.petikoch.examples.mvvm_rxjava.utils.SysOutUtils;
 import net.jcip.annotations.ThreadSafe;
 import rx.Single;
+import rx.schedulers.Schedulers;
 
 @ThreadSafe
 class Example_5a_Model {
 
     public Single<FinishedIndicator> createAccount(NameFirstname nameFirstname) {
-        return AsyncUtils.<FinishedIndicator>executeAsync(() -> {
+        return Single.fromCallable(() -> {
             try {
                 SysOutUtils.sysout("Processing: " + nameFirstname.toString());
                 Thread.sleep(5000);    // = Simulation of a "very slow" backend
@@ -34,7 +34,8 @@ class Example_5a_Model {
             } catch (InterruptedException e) {
                 SysOutUtils.sysout("Interrupted (=cancelled) -> good!");
             }
-        });
+            return FinishedIndicator.INSTANCE;
+        }).subscribeOn(Schedulers.io());
     }
 
 }

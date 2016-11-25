@@ -70,7 +70,10 @@ class Example_5a_ViewModel implements IViewModel<Example_5a_Model> {
     public void connectTo(final Example_5a_Model model) {
         onEventFrom(vm2m_nameFirstname).executeAsync(nameFirstname -> {
 
-            Single.merge(model.createAccount(nameFirstname), v2vm_cancelButtonEvents.first().toSingle())
+            Single.merge(
+                    model.createAccount(nameFirstname),
+                    v2vm_cancelButtonEvents.first().toSingle()
+            )
                     .toBlocking()
                     .first();
 
